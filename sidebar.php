@@ -66,7 +66,7 @@
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li><a href="add_hclass.php">Thêm lớp học</a></li>
-                        <li><a href="dashboard-2.html">Xem danh sách lớp học</a></li>
+                        <li><a href="view_hclass.php">Xem danh sách lớp học</a></li>
                         
                     </ul>
                 </li>
@@ -100,9 +100,14 @@
                 </li>
                 <li>
                     <a href="#" class="waves-effect">
-                        <i class="ion-md-speedometer"></i>
+                        <i class=" fas fa-user-graduate"></i>
                         <span> Học viên </span>
+                        <span class="menu-arrow"></span>
                     </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                    <li><a href="add_student.php">Thêm học viên</a></li>
+                    <li><a href="view_exam.php">Xem danh sách học viên</a></li>
+                </ul>
                 </li>';
                 } if (isset($_SESSION["TeacherID"])) {
                     echo '

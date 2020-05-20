@@ -29,6 +29,12 @@ $res = $db->query($sql);
 if ($res->num_rows > 0) {
 	$cou4 = $res->fetch_assoc();
 }
+//<!-- ============================================================== -->
+$sql = "SELECT COUNT(*) FROM handledclass ";
+$res = $db->query($sql);
+if ($res->num_rows > 0) {
+	$cou5 = $res->fetch_assoc();
+}
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +95,20 @@ if ($res->num_rows > 0) {
 									<div class="media">
 										<div class="media-body align-self-center">
 											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou1["COUNT(*)"]; ?></span></h2>
-											<p class="mb-0">Class</p>
+											<p class="mb-0">Phòng học</p>
+										</div>
+										<i class=" mdi mdi-garage text-success bg-light"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<div class="card">
+								<div class="card-body widget-style-2">
+									<div class="media">
+										<div class="media-body align-self-center">
+											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou5["COUNT(*)"]; ?></span></h2>
+											<p class="mb-0">Số lớp đang học</p>
 										</div>
 										<i class="ion-md-eye text-pink bg-light"></i>
 									</div>
@@ -103,7 +122,7 @@ if ($res->num_rows > 0) {
 									<div class="media">
 										<div class="media-body align-self-center">
 											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou2["COUNT(*)"]; ?></span></h2>
-											<p class="mb-0">Subjects</p>
+											<p class="mb-0">Môn học</p>
 										</div>
 										<i class="ion-ios-paper text-purple bg-light"></i>
 									</div>
@@ -117,7 +136,7 @@ if ($res->num_rows > 0) {
 									<div class="media">
 										<div class="media-body align-self-center">
 											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou3["COUNT(*)"]; ?></span></h2>
-											<p class="mb-0">Teacher</p>
+											<p class="mb-0">Tổng số giáo viên</p>
 										</div>
 										<i class=" ion-ios-people text-info bg-light"></i>
 									</div>
@@ -131,7 +150,7 @@ if ($res->num_rows > 0) {
 									<div class="media">
 										<div class="media-body align-self-center">
 											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou4["COUNT(*)"]; ?></span></h2>
-											<p class="mb-0">Student</p>
+											<p class="mb-0">Tổng số học viên</p>
 										</div>
 										<i class="mdi ion-md-school text-primary bg-light"></i>
 									</div>

@@ -2,44 +2,41 @@
 include "database.php";
 session_start();
 
-if (isset($_POST["ExamID"])) {
-    $ENAME = $_POST["ENAME"];
-    $EDATE = $_POST["EDATE"];
-    $SESSION = $_POST["SESSION"];
-    $ClassId  = $_POST["ClassId"];
-    $SubjectsID  = $_POST["SubjectsID"];
-    $ExamID  = $_POST["ExamID"];
-    $sql = "update exam
+if (isset($_POST["HID"])) {
+    $TeacherID = $_POST["TeacherID"];
+    $ClassID = $_POST["ClassID"];
+    $SubjectsID = $_POST["SubjectsID"];
+    $HID = $_POST["HID"];
+    $sql = "update handledclass
                 set
-                ENAME='$ENAME',
-                EDATE='$EDATE',
-                SESSION='$SESSION',
-                ClassId='$ClassId',
+                TeacherID='$TeacherID',
+                ClassID ='$ClassID',
                 SubjectsID='$SubjectsID'
-                where ExamID='$ExamID'";
+                where HID ='$HID'";
     if ($db->query($sql)) {
-        header("Location: view_exam.php");
+        header("Location: view_hclass.php");
     }
 }
 if (isset($_GET["id"])) {
-    $ExamID = $_GET["id"];
+    $HID  = $_GET["id"];
     $sql = "select
     *
-    FROM exam
-    INNER JOIN class ON exam.ClassId=class.ClassID
-    INNER JOIN subjects ON exam.SubjectsID=subjects.SubjectsID where ExamID='$ExamID'
-    ";
-
+    FROM handledclass
+    INNER JOIN class ON handledclass.ClassID =class.ClassID 
+    INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
+    INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID where HID ='$HID'
+    "; 
     $result = $db->query($sql);
+
     $row = $result->fetch_assoc();
     if ($row == null) {
-        header("Location: view_exam.php");
+        header("Location: view_hclass.php");
     }
 } else {
-    header("Location: view_exam.php");
+    header("Location: view_hclass.php");
 }
 
-//==========================================>
+//================= =========================>
 $sql = "select * from class";
 $query = $db->query($sql);
 $class = [];
@@ -52,6 +49,13 @@ $query = $db->query($sql);
 $sub = [];
 while ($item = $query->fetch_array()) {
     $sub[] = $item;
+}
+//==========================================>
+$sql = "select * from teacher";
+$query = $db->query($sql);
+$teacher = [];
+while ($item = $query->fetch_array()) {
+    $teacher[] = $item;
 }
 
 ?>
@@ -106,44 +110,38 @@ while ($item = $query->fetch_array()) {
                                     }
                                     ?>
                                     <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-                                        <input type="hidden" name="ExamID" value="<?= $row["ExamID"] ?>">
+                                        <input type="hidden" name="HID" value="<?= $row["HID"] ?>">
                                         <div class="form-group">
-                                            <label for="inputAddress" class="col-form-label">Tên kỳ thi</label>
-                                            <input type="text" value="<?= $row["ENAME"] ?>" name="ENAME" class="form-control" id="inputAddress" placeholder="">
+                                            <label for="inputAddress" class="col-form-label">Tên giáo viên dạy</label>
+                                            <select name="TeacherID" id="inputState" class="form-control">
+                                                <?php foreach ($teacher as $item) { ?>
+                                                    <option value="<?= $item["TeacherID"] ?>" <?= $item["TeacherID"] == $row["TeacherID"] ? "selected" : "" ?>>
+                                                        <?= $item["FullName"] ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="inputCity" class="col-form-label">Lớp</label>
-                                                <select value="<?= $row["ClassId"] ?>" name="ClassId" id="inputState" class="form-control">
+                                                <select name="ClassID" id="inputState" class="form-control">
                                                     <?php foreach ($class as $item) { ?>
-                                                        <option value="<?= $item["ClassID"] ?>" <?= $item["ClassID"] == $row["ClassId"] ? "selected" : "" ?>>
+                                                        <option value="<?= $item["ClassID"] ?>" <?= $item["ClassID"] == $row["ClassID"] ? "selected" : "" ?>>
                                                             <?= $item["ClassName"] ?>-<?= $item["ClassSection"] ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="inputCity" class="col-form-label">Cấp độ thi</label>
-                                                <input type="text" value="<?= $row["SESSION"] ?>" name="SESSION" class="form-control" id="inputCity">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
                                                 <label for="inputState" class="col-form-label">Môn học</label>
-                                                <select value="<?= $row["SubjectsID"] ?>" name="SubjectsID" id="inputState" class="form-control">
-                                                    <?php foreach ($sub as $item) { ?>
-                                                        <option value="<?= $item["SubjectsID"] ?>" <?= $item["SubjectsID"] == $row["SubjectsID"] ? "selected" : "" ?>>
-                                                            <?= $item["SubjectsName"] ?></option>
-                                                    <?php } ?>
+                                                <select name="SubjectsID" id="inputState" class="form-control">
+                                                <?php foreach ($sub as $item) { ?>
+                                                    <option value="<?= $item["SubjectsID"] ?>" <?= $item["SubjectsID"] == $row["SubjectsID"] ? "selected" : "" ?>>
+                                                        <?= $item["SubjectsName"] ?></option>
+                                                <?php } ?>
                                                 </select>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class=" col-form-label" for="example-date">Ngày thi</label>
-                                                <input class="form-control" value="<?= $row["EDATE"] ?>" name="EDATE" id="example-date" type="date" name="date">
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
-                                        <a href="view_exam.php" class="btn btn-pink">Trở về</a>
+                                        <a href="view_hclass.php" class="btn btn-pink">Trở về</a>
                                     </form>
                                 </div>
                             </div>

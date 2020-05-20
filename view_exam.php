@@ -82,7 +82,7 @@ if ($res->num_rows > 0) {
 														<td><?php echo $value["ENAME"] ?></td>
 														<td><?php echo $value["EDATE"] ?></td>
 														<td><?php echo $value["SESSION"] ?></td>
-														<td><?php echo $value["ClassName"] ?></td>
+														<td><?php echo $value["ClassName"],"-", $value["ClassSection"] ?></td>
 														<td><?php echo $value["SubjectsName"] ?></td>
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">

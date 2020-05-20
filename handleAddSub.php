@@ -7,7 +7,8 @@ if (isset($_POST["submit"])) {
         $_SESSION["alert"] = "Thêm thành công";
         header("Location:http://localhost/school/add_sub.php");
 
-    } else {
-        echo "<div class='error'>Thêm thất bại..</div>";
+    }else {
+        $_SESSION["alert1"] = "Thêm thất bại";
+        header("Location:http://localhost/school/add_hclass.php");
     }
 }

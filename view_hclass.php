@@ -2,18 +2,23 @@
 include "database.php";
 session_start();
 if (isset($_POST["delete"])) {
-	$SubjectsID = $_POST["delete"];
-	$sql = "DELETE FROM subjects WHERE SubjectsID='$SubjectsID'";
+	$HID  = $_POST["delete"];
+	$sql = "DELETE FROM handledclass WHERE HID ='$HID'";
 	$db->query($sql);
 }
 
-$s = "select * from subjects";
+$s = "select
+*
+FROM handledclass
+INNER JOIN class ON handledclass.ClassID=class.ClassID
+INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
+INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID";
 $res = $db->query($s);
-$subjects = [];
+$class = [];
 if ($res->num_rows > 0) {
 	$i = 0;
 	while ($r = $res->fetch_assoc()) {
-		$subjects[] = $r;
+		$class[] = $r;
 	}
 }
 
@@ -23,13 +28,14 @@ if ($res->num_rows > 0) {
 <html>
 
 <head>
-
 	<meta charset="utf-8">
 	<title>Admin Home</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta content="Responsive bootstrap 4 admin template" name="description">
 	<meta content="Coderthemes" name="author">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- App favicon -->
+	<link rel="shortcut icon" href="assets\images\favicon.ico">
 
 	<!-- Ricksaw Css-->
 	<link href="assets\libs\rickshaw\rickshaw.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +44,6 @@ if ($res->num_rows > 0) {
 	<link href="assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
 	<link href="assets\css\icons.min.css" rel="stylesheet" type="text/css">
 	<link href="assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
-	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
 </head>
 
 <body>
@@ -48,74 +53,50 @@ if ($res->num_rows > 0) {
 			<div class="content">
 				<!-- Start Content-->
 				<div class="container-fluid">
-					<!-- start page title -->
 					<div class="row">
 						<div class="col-12">
-							<div class="page-title-box">
-								<h4 class="page-title">Thêm Môn học</h4>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
-					<!-- end page title -->
-					<div class="row">
-						<div class="col-md-12">
 							<div class="card">
 								<div class="card-body">
-									<?php 
-										if(isset($_SESSION["alert"])){
-											echo("<div class='alert alert-success'>$_SESSION[alert]</div>");
-											unset($_SESSION["alert"]);
-										}if(isset($_SESSION["alert1"])){
-											echo("<div class='alert alert-success'>$_SESSION[alert]</div>");
-											unset($_SESSION["alert1"]);
-										}
-									?>
-									<form method="post" action="/school/handleAddSub.php">
-										<div class="form-row">
-											<div class="form-group col-md-3">
-												<label for="inputEmail4" class="col-form-label">Tên Môn</label>
-												<input type="text" name="sname" class="form-control " id="inputEmail4" placeholder="Tên môn">
-											</div>
+									<div class="form-row">
+										<div class="col-md-12 pb-4">
+											<h4 class="header-title" style="text-align:center;">Danh sách lớp học</h4>
 										</div>
-										<button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-body">
-									<h4 class="header-title mb-4">Danh sách lớp học</h4>
+									</div>
 									<div class="table-responsive">
 										<table class="table table-centered mb-0 table-nowrap" id="btn-editable">
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Tên Môn</th>
+													<th>Tên giáo viên</th>
+													<th>Lớp</th>
+													<th>Môn học</th>
 													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php $i = 1; ?>
-												<?php foreach ($subjects as $value) : ?>
+												<?php foreach ($class as $value) : ?>
 													<tr>
 														<td><?php echo ($i) ?></td>
+														<td><?php echo $value["FullName"] ?></td>
+														<td><?php echo $value["ClassName"],"-", $value["ClassSection"] ?></td>
 														<td><?php echo $value["SubjectsName"] ?></td>
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
-																<form method="post">
-																		<a type="button" href="edit_sub.php?id=<?= $value["SubjectsID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
+																	<form method="post">
+																		<button type="button" class="tabledit-edit-button btn btn-success" style="float: none;">
+																			<span class="mdi mdi-eye"></span>
+																		</button>
+																		<a type="button" href="edit_hclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
 																			<i class="fas fa-pencil-alt"></i>
 																		</a>
-																		<button class="btn btn-danger" name="delete" value="<?= $value["SubjectsID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
+																		<button class="btn btn-danger" name="delete" value="<?= $value["HID"] ?>">
 																			<i class="fas fa-times"></i>
 																		</button>
 																	</form>
 																</div>
+															</div>
 														</td>
 													</tr>
 													<?php $i++ ?>
