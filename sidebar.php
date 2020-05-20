@@ -106,7 +106,18 @@
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                     <li><a href="add_student.php">Thêm học viên</a></li>
-                    <li><a href="view_exam.php">Xem danh sách học viên</a></li>
+                    <li><a href="view_student.php">Xem danh sách học viên</a></li>
+                </ul>
+                </li>
+                <li>
+                    <a href="#" class="waves-effect">
+                        <i class=" fas fa-user-graduate"></i>
+                        <span> Điểm thi </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                    <li><a href="add_mark.php">Nhập điểm</a></li>
+                    <li><a href="view_mark.php">Xem danh sách điểm</a></li>
                 </ul>
                 </li>';
                 } if (isset($_SESSION["TeacherID"])) {

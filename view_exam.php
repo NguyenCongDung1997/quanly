@@ -2,8 +2,8 @@
 include "database.php";
 session_start();
 if (isset($_POST["delete"])) {
-	$TeacherID  = $_POST["delete"];
-	$sql = "DELETE FROM exam WHERE ExamID='$ExamID '";
+	$ExamID  = $_POST["delete"];
+	$sql = "DELETE FROM exam WHERE ExamID='$ExamID'";
 	$db->query($sql);
 }
 
@@ -58,7 +58,7 @@ if ($res->num_rows > 0) {
 								<div class="card-body">
 									<div class="form-row">
 										<div class="col-md-12 pb-4">
-											<h4 class="header-title" style="text-align:center;">Danh sách lớp học</h4>
+											<h4 class="header-title" style="text-align:center;">Danh sách kỳ thi</h4>
 										</div>
 									</div>
 									<div class="table-responsive">
