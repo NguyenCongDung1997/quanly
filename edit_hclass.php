@@ -141,7 +141,7 @@ while ($item = $query->fetch_array()) {
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
-                                        <a href="view_hclass.php" class="btn btn-pink">Trở về</a>
+                                        <a href="javascript:history.back()" class="btn btn-pink">Trở về</a>
                                     </form>
                                 </div>
                             </div>

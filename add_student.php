@@ -66,7 +66,8 @@ if ($res->num_rows > 0) {
 									if (isset($_SESSION["alert"])) {
 										echo ("<div class='alert alert-success'>$_SESSION[alert]</div>");
 										unset($_SESSION["alert"]);
-									}if(isset($_SESSION["alert1"])){
+									}
+									if (isset($_SESSION["alert1"])) {
 										echo ("<div class='alert alert-danger'>$_SESSION[alert1]</div>");
 										unset($_SESSION["alert1"]);
 									}
@@ -103,24 +104,24 @@ if ($res->num_rows > 0) {
 										<div class="form-group">
 											<label for="inputEmail4" class="col-form-label">Chọn lớp</label>
 											<select name="hid" id="inputState" class="form-control">
-													<?php
-                                                    $sl = "select *
+												<?php
+												$sl = "select *
                                                     FROM handledclass
                                                     INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
                                                     INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID
                                                     ";
-                                                   
-													$r = $db->query($sl);
-													if ($r->num_rows > 0) {
-														echo "<option value=''>Lớp học</option>";
-														while ($ro = $r->fetch_assoc()) {
-															echo "<option value='{$ro["HID"]}'>{$ro["FullName"]}-{$ro["SubjectsName"]}</option>";
-														}
+
+												$r = $db->query($sl);
+												if ($r->num_rows > 0) {
+													echo "<option value=''>Lớp học</option>";
+													while ($ro = $r->fetch_assoc()) {
+														echo "<option value='{$ro["HID"]}'>{$ro["FullName"]}-{$ro["SubjectsName"]}</option>";
 													}
-													?>
-												</select>
+												}
+												?>
+											</select>
 										</div>
-										
+
 
 										<button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
 									</form>

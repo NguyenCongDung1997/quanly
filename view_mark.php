@@ -2,23 +2,25 @@
 include "database.php";
 session_start();
 if (isset($_POST["delete"])) {
-	$HID  = $_POST["delete"];
-	$sql = "DELETE FROM handledclass WHERE HID ='$HID'";
+	$MarkID   = $_POST["delete"];
+	$sql = "DELETE FROM mark WHERE MarkID ='$MarkID'";
 	$db->query($sql);
 }
 
 $s = "select
 *
-FROM handledclass
-INNER JOIN class ON handledclass.ClassID=class.ClassID
-INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
-INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID";
+FROM mark
+INNER JOIN student ON mark.StudentID=student.StudentID
+INNER JOIN exam ON mark.ExamID =exam.ExamID 
+INNER JOIN subjects ON mark.SubjectsID =subjects.SubjectsID 
+";
+
 $res = $db->query($s);
-$class = [];
+$mark = [];
 if ($res->num_rows > 0) {
 	$i = 0;
 	while ($r = $res->fetch_assoc()) {
-		$class[] = $r;
+		$mark[] = $r;
 	}
 }
 
@@ -59,7 +61,7 @@ if ($res->num_rows > 0) {
 								<div class="card-body">
 									<div class="form-row">
 										<div class="col-md-12 pb-4">
-											<h4 class="header-title" style="text-align:center;">Danh sách lớp học</h4>
+											<h4 class="header-title" style="text-align:center;">Danh sách kỳ thi</h4>
 										</div>
 									</div>
 									<div class="table-responsive">
@@ -67,31 +69,33 @@ if ($res->num_rows > 0) {
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Tên giáo viên</th>
-													<th>Lớp</th>
-													<th>Môn học</th>
+													<th>Tên học viên</th>
+													<th>Điểm thi</th>
+													<th>Tên kỳ thi</th>
+													<th>Tên môn thi</th>
 													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php $i = 1; ?>
-												<?php foreach ($class as $value) : ?>
+												<?php foreach ($mark as $value) : ?>
 													<tr>
 														<td><?php echo ($i) ?></td>
-														<td><?php echo $value["FullName"] ?></td>
-														<td><?php echo $value["ClassName"], "-", $value["ClassSection"] ?></td>
+														<td><?php echo $value["StudentName"] ?></td>
+														<td><?php echo $value["Point"] ?></td>
+														<td><?php echo $value["ENAME"] ?></td>
 														<td><?php echo $value["SubjectsName"] ?></td>
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
 																	<form method="post">
-																		<a type="button" href="list_studentByhclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Xem danh sách học viên">
-																			<i class="mdi mdi-eye"></i>
-																		</a>
-																		<a type="button" href="edit_hclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
+																		<button type="button" class="tabledit-edit-button btn btn-success" style="float: none;">
+																			<span class="mdi mdi-eye"></span>
+																		</button>
+																		<a type="button" href="edit_mark.php?id=<?= $value["MarkID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
 																			<i class="fas fa-pencil-alt"></i>
 																		</a>
-																		<button class="btn btn-danger" name="delete" value="<?= $value["HID"] ?>">
+																		<button class="btn btn-danger" name="delete" value="<?= $value["MarkID"] ?>">
 																			<i class="fas fa-times"></i>
 																		</button>
 																	</form>

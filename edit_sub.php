@@ -80,7 +80,7 @@ if (isset($_GET["id"])) {
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
-                                        <a href="add_sub.php" class="btn btn-pink">Trở về</a>
+                                        <a href="javascript:history.back()" class="btn btn-pink">Trở về</a>
                                     </form>
                                 </div>
                             </div>

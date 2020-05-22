@@ -107,20 +107,17 @@ session_start();
                                         <div class="form-row">
 
                                             <div class="form-group col-md-12">
-                                                <label for="inputState" class="col-form-label">Lớp</label>
-                                                <select name="hid" id="inputState" class="form-control">
+                                                <label for="inputState" class="col-form-label">Môn thi</label>
+                                                <select name="subjectsid" id="inputState" class="form-control">
                                                     <?php
-                                                    $sl = "select *
-                                                    FROM handledclass
-                                                    INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
-                                                    INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID
+                                                    $sl = "SELECT * FROM subjects
                                                     ";
 
                                                     $r = $db->query($sl);
                                                     if ($r->num_rows > 0) {
-                                                        echo "<option value=''>Lớp học</option>";
+                                                        echo "<option value=''>Môn thi</option>";
                                                         while ($ro = $r->fetch_assoc()) {
-                                                            echo "<option value='{$ro["HID"]}'>{$ro["FullName"]}-{$ro["SubjectsName"]}</option>";
+                                                            echo "<option value='{$ro["SubjectsID"]}'>{$ro["SubjectsName"]}</option>";
                                                         }
                                                     }
                                                     ?>
