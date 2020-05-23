@@ -40,11 +40,11 @@ session_start();
 									$_SESSION["ANAME"] = $ro["ANAME"];
 									echo "<script>window.open('admin_home.php','_self');</script>";
 								} else {
-									echo "<div class='error'>Invalid Username or Password</div>";
+									echo "<div class='alert alert-danger'>Invalid Username or Password</div>";
 								}
 							}
 							if (isset($_GET["mes"])) {
-								echo "<div class='error'>{$_GET["mes"]}</div>";
+								echo "<div class='alert alert-danger'>{$_GET["mes"]}</div>";
 							}
 
 							?>
@@ -103,8 +103,8 @@ session_start();
 	<script src="js/jquery.js"></script>
 	<script>
 		$(document).ready(function() {
-			$(".error").fadeTo(1000, 100).slideUp(1000, function() {
-				$(".error").slideUp(1000);
+			$(".alert").fadeTo(1000, 100).slideUp(1000, function() {
+				$(".alert").slideUp(1000);
 			});
 
 			$(".success").fadeTo(1000, 100).slideUp(1000, function() {

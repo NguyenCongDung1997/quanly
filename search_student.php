@@ -7,14 +7,19 @@ if (isset($_POST["delete"])) {
     $db->query($sql);
 }
 
-$s = "select * from student";
-$res = $db->query($s);
-$class = [];
+$timkiem = isset($_POST["search"]) ? $_POST["search"] : "";
+
+$sql = "SELECT
+            *
+        FROM student
+        WHERE StudentName LIKE '%$timkiem%'";
+$res = $db->query($sql);
+$name = [];
 if ($res->num_rows > 0) {
-    $i = 0;
-    while ($r = $res->fetch_assoc()) {
-        $class[] = $r;
-    }
+	$i = 0;
+	while ($r = $res->fetch_assoc()) {
+		$name[] = $r;
+	}
 }
 
 ?>
@@ -87,7 +92,7 @@ if ($res->num_rows > 0) {
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1; ?>
-                                                <?php foreach ($class as $value) : ?>
+                                                <?php foreach ($name as $value) : ?>
                                                     <tr>
                                                         <td><?php echo ($i) ?></td>
                                                         <td><?php echo $value["StudentName"] ?></td>

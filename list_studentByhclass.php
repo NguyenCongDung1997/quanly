@@ -11,12 +11,9 @@ if (isset($_GET["id"])) {
 
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
-    if ($row == null) {
-        header("Location: view_hclass.php");
-    }
-} else {
-    header("Location: view_hclass.php");
-}
+
+} 
+
 $s = "select * from student where HID='$HID'";
 $res = $db->query($s);
 $class = [];
@@ -25,6 +22,19 @@ if ($res->num_rows > 0) {
     while ($r = $res->fetch_assoc()) {
         $class[] = $r;
     }
+}
+//==============================================>
+$s = "select
+*
+FROM handledclass
+INNER JOIN class ON handledclass.ClassID=class.ClassID
+INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
+INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID where HID='$HID'";
+
+$res = $db->query($s);
+
+if ($res->num_rows > 0) {
+	$row1 = $res->fetch_assoc();
 }
 
 ?>
@@ -62,17 +72,22 @@ if ($res->num_rows > 0) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                <?php
+									if (isset($_SESSION["alert"])) {
+										echo ("<div class='alert alert-success'>$_SESSION[alert]</div>");
+										unset($_SESSION["alert"]);
+									}
+									?>
                                     <div class="form-row">
                                         <div class=" col-md-12">
-                                            <h4 class="header-title" style="text-align:center;">Danh sách học viên</h4>
+                                            <h4 class="header-title" style="text-align:center;">Danh sách học viên lớp: <?= $row1["ClassName"] ?>-<?= $row1["ClassSection"] ?></h4>
                                         </div>
-                                        <div class=" p-2 col-md-12 d-flex flex-row-reverse">
-                                            <form class=" app-search">
-                                                <div class="app-search-box">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control " style="border-radius: 30px  " placeholder="Search...">
-                                                    </div>
-                                                </div>
+                                        <div class=" p-2 col-md-6">
+                                            <p class="text-black"> Giáo viên: <?= $row1["FullName"] ?> __ Môn: <?= $row1["SubjectsName"] ?> </p>
+                                        </div>
+                                        <div class=" p-2 col-md-6 d-flex flex-row-reverse">
+                                            <form action="/school/excel.php" method="post">
+                                                <input type="submit" name="export" class="btn btn-success" value="Xuất file Excel">
                                             </form>
                                         </div>
                                     </div>

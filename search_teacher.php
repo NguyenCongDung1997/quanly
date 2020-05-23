@@ -1,22 +1,25 @@
-<?php
+<?php 
 include "database.php";
 session_start();
+$timkiem = isset($_POST["search"]) ? $_POST["search"] : "";
+
 if (isset($_POST["delete"])) {
 	$TeacherID  = $_POST["delete"];
 	$sql = "DELETE FROM teacher WHERE TeacherID='$TeacherID'";
 	$db->query($sql);
 }
-
-$s = "select * from teacher";
-$res = $db->query($s);
-$class = [];
+$sql = "SELECT
+            *
+        FROM teacher
+        WHERE FullName LIKE '%$timkiem%'";
+$res = $db->query($sql);
+$name = [];
 if ($res->num_rows > 0) {
 	$i = 0;
 	while ($r = $res->fetch_assoc()) {
-		$class[] = $r;
+		$name[] = $r;
 	}
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +90,7 @@ if ($res->num_rows > 0) {
 											</thead>
 											<tbody>
 												<?php $i = 1; ?>
-												<?php foreach ($class as $value) : ?>
+												<?php foreach ($name as $value) : ?>
 													<tr>
 														<td><?php echo ($i) ?></td>
 														<td><?php echo $value["FullName"] ?></td>
