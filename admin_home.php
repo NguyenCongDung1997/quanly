@@ -89,7 +89,7 @@ if ($res->num_rows > 0) {
 					<!-- end page title -->
 
 					<div class="row">
-						<div class="col-xl-3 col-sm-6">
+						<div class="col-xl-3 col-sm-6" style="cursor: pointer;" onclick="window.location='add_class.php'">
 							<div class="card">
 								<div class="card-body widget-style-2">
 									<div class="media">
@@ -102,7 +102,7 @@ if ($res->num_rows > 0) {
 								</div>
 							</div>
 						</div>
-						<div class="col-xl-3 col-sm-6">
+						<div class="col-xl-3 col-sm-6" style="cursor: pointer;" onclick="window.location='view_hclass.php'">
 							<div class="card">
 								<div class="card-body widget-style-2">
 									<div class="media">
@@ -116,7 +116,7 @@ if ($res->num_rows > 0) {
 							</div>
 						</div>
 
-						<div class="col-xl-3 col-sm-6">
+						<div class="col-xl-3 col-sm-6" style="cursor: pointer;" onclick="window.location='add_sub.php'">
 							<div class="card">
 								<div class="card-body widget-style-2">
 									<div class="media">
@@ -130,7 +130,7 @@ if ($res->num_rows > 0) {
 							</div>
 						</div>
 
-						<div class="col-xl-3 col-sm-6">
+						<div class="col-xl-3 col-sm-6" style="cursor: pointer;" onclick="window.location='view_teacher.php'">
 							<div class="card">
 								<div class="card-body widget-style-2">
 									<div class="media">
@@ -144,7 +144,7 @@ if ($res->num_rows > 0) {
 							</div>
 						</div>
 
-						<div class="col-xl-3 col-sm-6">
+						<div class="col-xl-3 col-sm-6" style="cursor: pointer;" onclick="window.location='view_student.php'">
 							<div class="card">
 								<div class="card-body widget-style-2">
 									<div class="media">

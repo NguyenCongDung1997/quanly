@@ -56,7 +56,13 @@ if ($res->num_rows > 0) {
 										<div class=" col-md-12">
 											<h4 class="header-title" style="text-align:center;">Danh sách giáo viên</h4>
 										</div>
-										<div class=" p-2 col-md-12 d-flex flex-row-reverse ">
+										<div class=" p-2 col-md-6">
+                                            <form action="/school/excelTeacher.php" method="post">
+            
+                                                <input type="submit" name="export" class="btn btn-success" value="Xuất file Excel">
+                                            </form>
+                                        </div>
+										<div class=" p-2 col-md-6 d-flex flex-row-reverse ">
 											<form class=" app-search" action="search_teacher.php" method="post">
 												<div class="app-search-box">
 													<div class="input-group">

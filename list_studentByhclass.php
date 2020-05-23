@@ -11,8 +11,7 @@ if (isset($_GET["id"])) {
 
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
-
-} 
+}
 
 $s = "select * from student where HID='$HID'";
 $res = $db->query($s);
@@ -34,7 +33,7 @@ INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID where HID='$HID'"
 $res = $db->query($s);
 
 if ($res->num_rows > 0) {
-	$row1 = $res->fetch_assoc();
+    $row1 = $res->fetch_assoc();
 }
 
 ?>
@@ -72,12 +71,12 @@ if ($res->num_rows > 0) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                <?php
-									if (isset($_SESSION["alert"])) {
-										echo ("<div class='alert alert-success'>$_SESSION[alert]</div>");
-										unset($_SESSION["alert"]);
-									}
-									?>
+                                    <?php
+                                    if (isset($_SESSION["alert"])) {
+                                        echo ("<div class='alert alert-success'>$_SESSION[alert]</div>");
+                                        unset($_SESSION["alert"]);
+                                    }
+                                    ?>
                                     <div class="form-row">
                                         <div class=" col-md-12">
                                             <h4 class="header-title" style="text-align:center;">Danh sách học viên lớp: <?= $row1["ClassName"] ?>-<?= $row1["ClassSection"] ?></h4>
@@ -86,7 +85,8 @@ if ($res->num_rows > 0) {
                                             <p class="text-black"> Giáo viên: <?= $row1["FullName"] ?> __ Môn: <?= $row1["SubjectsName"] ?> </p>
                                         </div>
                                         <div class=" p-2 col-md-6 d-flex flex-row-reverse">
-                                            <form action="/school/excel.php" method="post">
+                                            <form action="/school/excelStudentByhclass.php" method="post">
+                                                <input type="hidden" name="classId" value="<?php echo $row1["HID"] ?>">
                                                 <input type="submit" name="export" class="btn btn-success" value="Xuất file Excel">
                                             </form>
                                         </div>
