@@ -9,6 +9,6 @@ if (isset($_POST["submit"])) {
 
     }else {
         $_SESSION["alert1"] = "Thêm thất bại";
-        header("Location:http://localhost/school/add_hclass.php");
+        header("Location:http://localhost/school/add_sub.php");
     }
 }

@@ -7,7 +7,7 @@ if (isset($_POST["delete"])) {
 	$db->query($sql);
 }
 
-$s = "select * from class";
+$s = "select * from class ORDER BY ClassName,ClassSection";
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {

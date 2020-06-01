@@ -67,7 +67,7 @@ if ($res->num_rows > 0) {
 											echo("<div class='alert alert-success'>$_SESSION[alert]</div>");
 											unset($_SESSION["alert"]);
 										}if(isset($_SESSION["alert1"])){
-											echo("<div class='alert alert-success'>$_SESSION[alert]</div>");
+											echo("<div class='alert alert-danger'>$_SESSION[alert1]</div>");
 											unset($_SESSION["alert1"]);
 										}
 									?>

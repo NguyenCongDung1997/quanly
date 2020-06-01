@@ -7,12 +7,12 @@ if (isset($_POST["delete"])) {
 	$db->query($sql);
 }
 
-$s = "select
-*
-FROM handledclass
-INNER JOIN class ON handledclass.ClassID=class.ClassID
-INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
-INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID";
+$s = "select teacher.FullName,class.ClassName,class.ClassSection,subjects.SubjectsName ,student.HID,COUNT(*) 
+FROM handledclass 
+INNER JOIN class ON handledclass.ClassID=class.ClassID 
+INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID 
+INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID 
+INNER JOIN student ON handledclass.HID = student.HID GROUP BY student.HID";
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {
@@ -67,9 +67,10 @@ if ($res->num_rows > 0) {
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Tên giáo viên</th>
+													<th>Tên giáo viên chủ nhiệm</th>
 													<th>Lớp</th>
 													<th>Môn học</th>
+													<th>Tổng học sinh</th>
 													<th></th>
 												</tr>
 											</thead>
@@ -81,6 +82,7 @@ if ($res->num_rows > 0) {
 														<td><?php echo $value["FullName"] ?></td>
 														<td><?php echo $value["ClassName"], "-", $value["ClassSection"] ?></td>
 														<td><?php echo $value["SubjectsName"] ?></td>
+														<td><?php echo $value["COUNT(*)"]," học sinh"?></td>
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
