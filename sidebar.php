@@ -1,39 +1,4 @@
-<!-- <div class="sidebar"><br>
-	<h3 class="text">Dashboard</h3><br>
-	<hr><br>
-	<ul class="s">
-		<?php
-        // if (isset($_SESSION["AID"])) {
-        // 	echo '
-        // 	<li class="li"><a href="admin_home.php">School Information</a></li>
-        // 	<li class="li"><a href="add_class.php"> Class</a></li>
-        // 	<li class="li"><a href="add_sub.php"> Subject</a></li>
 
-        // 	<li class="li"><a href="add_staff.php"> Staff</a></li>
-        // 	<li class="li"><a href="view_staff.php">View Staff</a></li>
-        // 	<li class="li"><a href="set_exam.php">Set Exam</a></li>
-        // 	<li class="li"><a href="view_exam.php">View Exam</a></li>
-
-        // 	<li class="li"><a href="student.php"target="_blank"> View Student</a></li>
-        // 	<li class="li"><a href="logout.php">Logout</a></li>
-
-        // ';
-        // } else {
-        // 	echo '
-        // 	<li class="li"><a href="teacher_home.php">Profile</a></li>
-        // 	<li class="li"><a href="handle_class.php"> Handled Class</a></li>
-        // 	<li class="li"><a href="add_stud.php"> Students</a></li>
-        // 	<li class="li"><a href="view_stud_teach.php" target="_blank"> View Student</a></li>
-
-        // 	<li class="li"><a href="tech_view_exam.php">View Exam</a></li>
-        // 	<li class="li"><a href="add_mark.php">Add Marks</a></li>
-        // 	<li class="li"><a href="view_mark.php">View Marks</a></li>
-        // 	<li class="li"><a href="logout.php">Logout</a></li>';
-        // }
-        ?>
-	</ul>
-
-</div> -->
 
 <div class="left-side-menu">
 
@@ -67,7 +32,7 @@
                     <ul class="nav-second-level" aria-expanded="false">
                         <li><a href="add_hclass.php">Thêm lớp học</a></li>
                         <li><a href="view_hclass.php">Xem danh sách lớp học</a></li>
-                        
+                        <li><a href="view_hclass_all.php">Xem danh sách tất cả lớp học</a></li>
                     </ul>
                 </li>
                 <li>
@@ -118,6 +83,7 @@
                     <ul class="nav-second-level" aria-expanded="false">
                     <li><a href="add_mark.php">Nhập điểm</a></li>
                     <li><a href="view_mark.php">Xem danh sách điểm</a></li>
+                    <li><a href="view_mark_class.php">Xem danh sách điểm theo lớp</a></li>
                 </ul>
                 </li>';
                 } if (isset($_SESSION["TeacherID"])) {

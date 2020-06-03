@@ -75,7 +75,7 @@ if ($res->num_rows > 0) {
 
 										<div class="form-group">
 											<label for="inputAddress" class="col-form-label">Họ tên giáo viên</label>
-											<input type="text" name="tfullname" class="form-control" id="inputAddress" placeholder="">
+											<input type="text" name="tfullname" class="form-control" id="inputAddress" placeholder="" autocomplete="off">
 										</div>
 										<div class="form-group">
 											<label for="inputAddress2" class="col-form-label">Địa chỉ</label>

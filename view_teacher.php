@@ -88,6 +88,7 @@ if ($res->num_rows > 0) {
 													<th>Địa chỉ</th>
 													<th>Email</th>
 													<th>Số điện thoại</th>
+													<th>Avatar</th>
 													<th></th>
 												</tr>
 											</thead>
@@ -102,10 +103,15 @@ if ($res->num_rows > 0) {
 														<td><?php echo $value["Address"] ?></td>
 														<td><?php echo $value["TeacherMail"] ?></td>
 														<td><?php echo $value["TeacherPhone"] ?></td>
+														<td><img src="img/<?php echo $value["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 40px"></td>
+														
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
 																	<form method="post">
+																		<a type="button" href="edit_teacher.php?id=<?= $value["TeacherID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
+                                                                            <i class="fas fa-pencil-alt"></i>
+                                                                        </a>
 																		<button class="btn btn-danger" name="delete" value="<?= $value["TeacherID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
 																			<i class="fas fa-times"></i>
 																		</button>

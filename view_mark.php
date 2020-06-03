@@ -11,8 +11,8 @@ $s = "select
 *
 FROM mark
 INNER JOIN student ON mark.StudentID=student.StudentID
-INNER JOIN exam ON mark.ExamID =exam.ExamID 
 INNER JOIN subjects ON mark.SubjectsID =subjects.SubjectsID 
+ORDER BY SubjectsName
 ";
 
 $res = $db->query($s);
@@ -61,7 +61,7 @@ if ($res->num_rows > 0) {
 								<div class="card-body">
 									<div class="form-row">
 										<div class="col-md-12 pb-4">
-											<h4 class="header-title" style="text-align:center;">Danh sách kỳ thi</h4>
+											<h4 class="header-title" style="text-align:center;">Danh sách điểm thi</h4>
 										</div>
 									</div>
 									<div class="table-responsive">
@@ -70,20 +70,24 @@ if ($res->num_rows > 0) {
 												<tr>
 													<th>#</th>
 													<th>Tên học viên</th>
-													<th>Điểm thi</th>
-													<th>Tên kỳ thi</th>
-													<th>Tên môn thi</th>
+													<th>Điểm miệng</th>
+													<th>Điểm giữa kỳ</th>
+													<th>Điểm cuối kỳ</th>
+													<th>Điểm trung bình</th>
+													<th>Tên môn học</th>
 													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php $i = 1; ?>
-												<?php foreach ($mark as $value) : ?>
+												<?php $tb = 0; foreach ($mark as $value) : ?>
 													<tr>
 														<td><?php echo ($i) ?></td>
 														<td><?php echo $value["StudentName"] ?></td>
-														<td><?php echo $value["Point"] ?></td>
-														<td><?php echo $value["ENAME"] ?></td>
+														<td><?php echo $value["PointCC"] ?></td>
+														<td><?php echo $value["PointGK"] ?></td>
+														<td><?php echo $value["PointCK"] ?></td>
+														<td><?php echo $tb =round(($value["PointCC"] + $value["PointGK"]*2 + $value["PointCK"]*3)/6,2) ?></td>
 														<td><?php echo $value["SubjectsName"] ?></td>
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">

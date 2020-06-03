@@ -4,15 +4,17 @@ session_start();
 
 if (isset($_POST["MarkID"])) {
     
-    $Point = $_POST["Point"];
-    $ExamID = $_POST["ExamID"];
+    $PointCC = $_POST["PointCC"];
+    $PointGK = $_POST["PointGK"];
+    $PointCK = $_POST["PointCK"];
     $SubjectsID = $_POST["SubjectsID"];
     $MarkID  = $_POST["MarkID"];
     $sql = "update mark
                 set
                 
-                Point='$Point',
-                ExamID='$ExamID',
+                PointCC='$PointCC',
+                PointGK='$PointGK',
+                PointCK='$PointCK',
                 SubjectsID='$SubjectsID'
                 where MarkID ='$MarkID'";
                 
@@ -26,7 +28,6 @@ if (isset($_GET["id"])) {
     $sql = "select
     *
     FROM mark
-    INNER JOIN exam ON mark.ExamID=exam.ExamID
     INNER JOIN subjects ON mark.SubjectsID=subjects.SubjectsID
     INNER JOIN student ON mark.StudentID=student.StudentID where MarkID ='$MarkID'
     ";
@@ -40,13 +41,7 @@ if (isset($_GET["id"])) {
     header("Location: view_mark.php");
 }
 
-//==========================================>
-$sql = "select * from exam";
-$query = $db->query($sql);
-$exam = [];
-while ($item = $query->fetch_array()) {
-    $exam[] = $item;
-}
+
 //==========================================>
 $sql = "select * from subjects";
 $query = $db->query($sql);
@@ -110,34 +105,30 @@ while ($item = $query->fetch_array()) {
                                         <input type="hidden" name="MarkID" value="<?= $row["MarkID"] ?>">
                                         <div class="form-group">
                                             <label for="inputAddress" class="col-form-label">Tên học viên</label>
-                                            <input type="text" value="<?= $row["StudentName"] ?>" name="StudentName" class="form-control" id="inputAddress" placeholder="" >
+                                            <input type="text" disabled value="<?= $row["StudentName"] ?>" name="StudentName" class="form-control" id="inputAddress" placeholder="" >
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="inputCity" class="col-form-label">Điểm thi</label>
-                                                <input type="text" value="<?= $row["Point"] ?>" name="Point" class="form-control" id="inputCity">
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCity" class="col-form-label">Điểm miệng</label>
+                                                <input type="text" value="<?= $row["PointCC"] ?>" name="Point" class="form-control" id="inputCity">
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="inputCity" class="col-form-label">Kỳ thi</label>
-                                                <select value="<?= $row["ExamID"] ?>" name="ExamID" id="inputState" class="form-control">
-                                                    <?php foreach ($exam as $item) { ?>
-                                                        <option value="<?= $item["ExamID"] ?>" <?= $item["ExamID"] == $row["ExamID"] ? "selected" : "" ?>>
-                                                            <?= $item["ENAME"] ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCity" class="col-form-label">Điểm giữa kỳ</label>
+                                                <input type="text" value="<?= $row["PointGK"] ?>" name="Point" class="form-control" id="inputCity">
                                             </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCity" class="col-form-label">Điểm cuối kỳ</label>
+                                                <input type="text" value="<?= $row["PointCK"] ?>" name="Point" class="form-control" id="inputCity">
+                                            </div>
+                                            
 
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="inputState" class="col-form-label">Môn học</label>
-                                                <select value="<?= $row["SubjectsID"] ?>" name="SubjectsID" id="inputState" class="form-control">
-                                                    <?php foreach ($sub as $item) { ?>
-                                                        <option value="<?= $item["SubjectsID"] ?>" <?= $item["SubjectsID"] == $row["SubjectsID"] ? "selected" : "" ?>>
-                                                            <?= $item["SubjectsName"] ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                <input type="text" disabled value="<?= $row["SubjectsName"] ?>" name="SubjectsName" class="form-control" id="inputAddress" placeholder="" >
+                                                
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>

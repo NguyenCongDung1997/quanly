@@ -1,15 +1,22 @@
 <?php
 include "database.php";
 session_start();
-if (isset($_POST["delete"])) {
-    $StudentID  = $_POST["delete"];
-    $sql = "DELETE FROM student WHERE StudentID='$StudentID'";
-    $db->query($sql);
+
+if (isset($_GET["id"])) {
+    $HID = $_GET["id"];
+    $sql = "select
+    *
+    FROM student where HID='$HID'
+    ";
+
+    $result = $db->query($sql);
+    $row = $result->fetch_assoc();
 }
 
-$s = "SELECT * FROM student
-INNER JOIN handledclass ON handledclass.HID = student.HID 
-INNER JOIN class ON class.ClassID = handledclass.ClassID";
+$s = "select * from student 
+INNER JOIN mark ON mark.StudentID=student.StudentID 
+INNER JOIN subjects ON mark.SubjectsID=subjects.SubjectsID 
+where HID='$HID' ORDER BY SubjectsName" ;
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {
@@ -18,6 +25,29 @@ if ($res->num_rows > 0) {
         $class[] = $r;
     }
 }
+//==============================================>
+$s = "select
+*
+FROM handledclass
+INNER JOIN class ON handledclass.ClassID=class.ClassID
+INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
+INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID where HID='$HID'";
+
+$res = $db->query($s);
+
+if ($res->num_rows > 0) {
+    $row1 = $res->fetch_assoc();
+}
+$s = "select * FROM mark 
+INNER JOIN subjects ON mark.SubjectsID=subjects.SubjectsID
+INNER JOIN student ON mark.StudentID=student.StudentID where HID='$HID'";
+
+$res = $db->query($s);
+
+if ($res->num_rows > 0) {
+    $row2 = $res->fetch_assoc();
+}
+
 
 ?>
 
@@ -54,24 +84,23 @@ if ($res->num_rows > 0) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <?php
+                                    if (isset($_SESSION["alert"])) {
+                                        echo ("<div class='alert alert-success'>$_SESSION[alert]</div>");
+                                        unset($_SESSION["alert"]);
+                                    }
+                                    ?>
                                     <div class="form-row">
                                         <div class=" col-md-12">
-                                            <h4 class="header-title" style="text-align:center;">Danh sách học viên</h4>
+                                            <h4 class="header-title" style="text-align:center;">Danh sách điểm lớp: <?= $row1["ClassName"] ?>-<?= $row1["ClassSection"] ?></h4>
                                         </div>
-                                        <div class=" p-2 col-md-12 d-flex flex-row-reverse ">
-											<form class=" app-search" action="search_student.php" method="post">
-												<div class="app-search-box">
-													<div class="input-group">
-														<input name="search" type="text" autocomplete="off" class="form-control " style="border-radius: 30px 0 0 30px  " placeholder="Search...">
-														<div class="input-group-append">
-															<button class="btn btn-secondary" type="submit" style="border-radius: 0 30px 30px 0">
-																<i class="fas fa-search"></i>
-															</button>
-														</div>
-													</div>
-												</div>
-											</form>
-										</div>
+                                        
+                                        <div class=" p-2 col-md-12 d-flex flex-row-reverse">
+                                            <form action="/school/excelStudentByhclass.php" method="post">
+                                                <input type="hidden" name="classId" value="<?php echo $row1["HID"] ?>">
+                                                <input type="submit" name="export" class="btn btn-success" value="Xuất file Excel">
+                                            </form>
+                                        </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-centered mb-0 table-nowrap" id="btn-editable">
@@ -79,11 +108,8 @@ if ($res->num_rows > 0) {
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Tên Học viên</th>
-                                                    <th>Giới tính</th>
-                                                    <th>Ngày sinh</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th>Lớp</th>
-                                                    <th>Số điện thoại</th>
+                                                    <th>Điểm trung bình</th>
+                                                    <th>Môn</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -93,11 +119,8 @@ if ($res->num_rows > 0) {
                                                     <tr>
                                                         <td><?php echo ($i) ?></td>
                                                         <td><?php echo $value["StudentName"] ?></td>
-                                                        <td><?php echo $value["gender"] ?></td>
-                                                        <td><?php echo $value["StudentDate"] ?></td>
-                                                        <td><?php echo $value["Address"] ?></td>
-                                                        <td><?php echo $value["ClassName"], "-", $value["ClassSection"]?></td>
-                                                        <td><?php echo $value["StudentPhone"] ?></td>
+                                                        <td><?php echo $tb =round(($value["PointCC"] + $value["PointGK"]*2 + $value["PointCK"]*3)/6,2) ?></td>
+                                                        <td><?php echo $value["SubjectsName"] ?></td>
                                                         <td style="white-space: nowrap; width: 1%;">
                                                             <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
                                                                 <div class="btn-group btn-group-sm" style="float: none;">
@@ -138,5 +161,3 @@ if ($res->num_rows > 0) {
     <?php include "sidebar.php"; ?>
     <?php include "footer.php"; ?>
 </body>
-
-</html>

@@ -84,38 +84,33 @@ session_start();
                                             </select>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="inputCity" class="col-form-label">Điểm thi</label>
-                                                <input type="text" name="point" class="form-control" id="inputAddress" placeholder="">
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCity" class="col-form-label">Điểm miệng</label>
+                                                <input type="text" name="pointcc" class="form-control" id="inputAddress" placeholder="" autocomplete="off">
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="inputState" class="col-form-label">Kỳ thi</label>
-                                                <select name="examid" id="inputState" class="form-control">
-                                                    <?php
-                                                    $sl = "SELECT * FROM exam";
-                                                    $r = $db->query($sl);
-                                                    if ($r->num_rows > 0) {
-                                                        echo "<option value=''>Kỳ thi</option>";
-                                                        while ($ro = $r->fetch_assoc()) {
-                                                            echo "<option value='{$ro["ExamID"]}'>{$ro["ENAME"]}</option>";
-                                                        }
-                                                    }
-                                                    ?>
-                                                </select>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCity" class="col-form-label">Điểm giữa kỳ</label>
+                                                <input type="text" name="pointgk" class="form-control" id="inputAddress" placeholder="" autocomplete="off">
                                             </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCity" class="col-form-label">Điểm cuối kỳ</label>
+                                                <input type="text" name="pointck" class="form-control" id="inputAddress" placeholder="" autocomplete="off">
+                                            </div>
+                                            
                                         </div>
                                         <div class="form-row">
 
                                             <div class="form-group col-md-12">
-                                                <label for="inputState" class="col-form-label">Môn thi</label>
+                                                <label for="inputState" class="col-form-label">Môn học</label>
                                                 <select name="subjectsid" id="inputState" class="form-control">
                                                     <?php
-                                                    $sl = "SELECT * FROM subjects
+                                                    $sl = "SELECT * FROM
+                                                    subjects
                                                     ";
 
                                                     $r = $db->query($sl);
                                                     if ($r->num_rows > 0) {
-                                                        echo "<option value=''>Môn thi</option>";
+                                                        echo "<option value=''>Môn học</option>";
                                                         while ($ro = $r->fetch_assoc()) {
                                                             echo "<option value='{$ro["SubjectsID"]}'>{$ro["SubjectsName"]}</option>";
                                                         }

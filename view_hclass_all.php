@@ -2,16 +2,17 @@
 include "database.php";
 session_start();
 if (isset($_POST["delete"])) {
-	$ExamID = $_POST["delete"];
-	$sql = "DELETE FROM exam WHERE ExamID='$ExamID'";
+	$HID  = $_POST["delete"];
+	$sql = "DELETE FROM handledclass WHERE HID ='$HID'";
 	$db->query($sql);
 }
 
-$s = "select
-*
-FROM exam
-INNER JOIN class ON exam.ClassId=class.ClassID
-INNER JOIN subjects ON exam.SubjectsID=subjects.SubjectsID";
+$s = "select *
+FROM handledclass 
+INNER JOIN class ON handledclass.ClassID=class.ClassID 
+INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID 
+INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID 
+";
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {
@@ -58,7 +59,7 @@ if ($res->num_rows > 0) {
 								<div class="card-body">
 									<div class="form-row">
 										<div class="col-md-12 pb-4">
-											<h4 class="header-title" style="text-align:center;">Danh sách kỳ thi</h4>
+											<h4 class="header-title" style="text-align:center;">Danh sách lớp học</h4>
 										</div>
 									</div>
 									<div class="table-responsive">
@@ -66,11 +67,10 @@ if ($res->num_rows > 0) {
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Tên kỳ thi</th>
-													<th>Ngày thi</th>
-													<th>Cấp độ</th>
+													<th>Tên giáo viên chủ nhiệm</th>
 													<th>Lớp</th>
-													<th>Môn thi</th>
+													<th>Môn học</th>
+												
 													<th></th>
 												</tr>
 											</thead>
@@ -79,22 +79,21 @@ if ($res->num_rows > 0) {
 												<?php foreach ($class as $value) : ?>
 													<tr>
 														<td><?php echo ($i) ?></td>
-														<td><?php echo $value["ENAME"] ?></td>
-														<td><?php echo $value["EDATE"] ?></td>
-														<td><?php echo $value["SESSION"] ?></td>
-														<td><?php echo $value["ClassName"],"-", $value["ClassSection"] ?></td>
+														<td><?php echo $value["FullName"] ?></td>
+														<td><?php echo $value["ClassName"], "-", $value["ClassSection"] ?></td>
 														<td><?php echo $value["SubjectsName"] ?></td>
+														
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
 																	<form method="post">
-																		<button type="button" class="tabledit-edit-button btn btn-success" style="float: none;">
-																			<span class="mdi mdi-eye"></span>
-																		</button>
-																		<a type="button" href="edit_exam.php?id=<?= $value["ExamID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
+																		<a type="button" href="list_studentByhclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Xem danh sách học viên">
+																			<i class="mdi mdi-eye"></i>
+																		</a>
+																		<a type="button" href="edit_hclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
 																			<i class="fas fa-pencil-alt"></i>
 																		</a>
-																		<button class="btn btn-danger" name="delete" value="<?= $value["ExamID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
+																		<button class="btn btn-danger" name="delete" value="<?= $value["HID"] ?>">
 																			<i class="fas fa-times"></i>
 																		</button>
 																	</form>

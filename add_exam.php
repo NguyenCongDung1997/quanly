@@ -71,37 +71,15 @@ if ($res->num_rows > 0) {
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<label for="inputCity" class="col-form-label">Lớp</label>
+												<label for="inputCity" class="col-form-label">Khối</label>
 												<select name="classid" id="inputState" class="form-control">
 													<?php
-													$sl = "SELECT * FROM class";
+													$sl = "SELECT * FROM class Group By ClassName";
 													$r = $db->query($sl);
 													if ($r->num_rows > 0) {
-														echo "<option  value=''>Lớp</option>";
+														echo "<option  value=''>Khối</option>";
 														while ($ro = $r->fetch_assoc()) {
-															echo "<option value='{$ro["ClassID"]}'>{$ro["ClassName"]}-{$ro["ClassSection"]}</option>";
-														}
-													}
-													?>
-												</select>
-											</div>
-											<div class="form-group col-md-6">
-												<label for="inputCity" class="col-form-label">Cấp độ thi</label>
-												<input type="text" name="session" class="form-control" id="inputCity">
-											</div>
-										</div>
-
-										<div class="form-row">
-											<div class="form-group col-md-6">
-												<label for="inputState" class="col-form-label">Môn học</label>
-												<select name="subjectid" id="inputState" class="form-control">
-													<?php
-													$sl = "SELECT * FROM subjects";
-													$r = $db->query($sl);
-													if ($r->num_rows > 0) {
-														echo "<option value=''>Môn học</option>";
-														while ($ro = $r->fetch_assoc()) {
-															echo "<option value='{$ro["SubjectsID"]}'>{$ro["SubjectsName"]}</option>";
+															echo "<option value='{$ro["ClassID"]}'>{$ro["ClassName"]}</option>";
 														}
 													}
 													?>
@@ -111,6 +89,25 @@ if ($res->num_rows > 0) {
 												<label class=" col-form-label" for="example-date">Ngày thi</label>
 												<input class="form-control" name="edate" id="example-date" type="date" name="date">
 											</div>
+										</div>
+
+										<div class="form-row">
+											<div class="form-group col-md-12">
+												<label for="inputState" class="col-form-label">Môn Thi</label>
+												<select name="subjectid" id="inputState" class="form-control">
+													<?php
+													$sl = "SELECT * FROM subjects";
+													$r = $db->query($sl);
+													if ($r->num_rows > 0) {
+														echo "<option value=''>Môn thi</option>";
+														while ($ro = $r->fetch_assoc()) {
+															echo "<option value='{$ro["SubjectsID"]}'>{$ro["SubjectsName"]}</option>";
+														}
+													}
+													?>
+												</select>
+											</div>
+											
 										</div>
 
 										<button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
