@@ -104,7 +104,7 @@ while ($item = $query->fetch_array()) {
                                     <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
                                         <input type="hidden" name="MarkID" value="<?= $row["MarkID"] ?>">
                                         <div class="form-group">
-                                            <label for="inputAddress" class="col-form-label">Tên học viên</label>
+                                            <label for="inputAddress" class="col-form-label">Tên học sinh</label>
                                             <input type="text" disabled value="<?= $row["StudentName"] ?>" name="StudentName" class="form-control" id="inputAddress" placeholder="" >
                                         </div>
                                         <div class="form-row">

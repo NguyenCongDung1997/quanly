@@ -52,7 +52,7 @@ if ($res->num_rows > 0) {
 					<div class="row">
 						<div class="col-12">
 							<div class="page-title-box">
-								<h4 class="page-title">Thêm học viên</h4>
+								<h4 class="page-title">Thêm học sinh</h4>
 								<div class="clearfix"></div>
 							</div>
 						</div>
@@ -75,7 +75,7 @@ if ($res->num_rows > 0) {
 									<form method="post" action="/school/handleAddStudent.php">
 
 										<div class="form-group">
-											<label for="inputAddress" class="col-form-label">Họ tên học viên</label>
+											<label for="inputAddress" class="col-form-label">Họ tên học sinh</label>
 											<input type="text" name="sfullname" class="form-control" id="inputAddress" placeholder="">
 										</div>
 										<div class="form-group">

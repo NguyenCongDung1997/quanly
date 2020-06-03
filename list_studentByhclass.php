@@ -79,10 +79,10 @@ if ($res->num_rows > 0) {
                                     ?>
                                     <div class="form-row">
                                         <div class=" col-md-12">
-                                            <h4 class="header-title" style="text-align:center;">Danh sách học viên lớp: <?= $row1["ClassName"] ?>-<?= $row1["ClassSection"] ?></h4>
+                                            <h4 class="header-title" style="text-align:center;">Danh sách học sinh lớp: <?= $row1["ClassName"] ?>-<?= $row1["ClassSection"] ?></h4>
                                         </div>
                                         <div class=" p-2 col-md-6">
-                                            <p class="text-black"> Giáo viên: <?= $row1["FullName"] ?> __ Môn: <?= $row1["SubjectsName"] ?> </p>
+                                            <p class="text-black"> Giáo viên chủ nhiệm: <?= $row1["FullName"] ?> __ Môn: <?= $row1["SubjectsName"] ?> </p>
                                         </div>
                                         <div class=" p-2 col-md-6 d-flex flex-row-reverse">
                                             <form action="/school/excelStudentByhclass.php" method="post">
@@ -96,7 +96,7 @@ if ($res->num_rows > 0) {
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Tên Học viên</th>
+                                                    <th>Tên Học sinh</th>
                                                     <th>Giới tính</th>
                                                     <th>Ngày sinh</th>
                                                     <th>Địa chỉ</th>

@@ -87,7 +87,7 @@ if ($res->num_rows > 0) {
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
 																	<form method="post">
-																		<a type="button" href="list_studentByhclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Xem danh sách học viên">
+																		<a type="button" href="list_studentByhclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Xem danh sách học sinh">
 																			<i class="mdi mdi-eye"></i>
 																		</a>
 																		<a type="button" href="edit_hclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">

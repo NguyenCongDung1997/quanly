@@ -21,9 +21,11 @@ if (isset($_POST["StudentID"])) {
                 HID ='$HID',
                 Images ='$Images'
                 where StudentID ='$StudentID'";
+                
     if ($db->query($sql)) {
         header("Location: view_student.php");
     }
+    
 }
 if (isset($_GET["id"])) {
     $StudentID  = $_GET["id"];
@@ -85,7 +87,7 @@ while ($item = $query->fetch_array()) {
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center">
                             <div class="page-title-box">
-                                <h4 class="page-title">Sửa thông tin học viên</h4>
+                                <h4 class="page-title">Sửa thông tin học sinh</h4>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
@@ -104,7 +106,7 @@ while ($item = $query->fetch_array()) {
                                     <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
                                         <input type="hidden" name="StudentID" value="<?= $row["StudentID"] ?>">
                                         <div class="form-group">
-                                            <label for="inputAddress" class="col-form-label">Họ tên học viên</label>
+                                            <label for="inputAddress" class="col-form-label">Họ tên học sinh</label>
                                             <input type="text" value="<?= $row["StudentName"] ?>" name="StudentName" class="form-control" id="inputAddress" placeholder="">
                                         </div>
                                         <div class="form-group">
@@ -130,6 +132,7 @@ while ($item = $query->fetch_array()) {
                                             <div class="form-group col-md-12">
                                                 <label for="inputZip" class="col-form-label">Chọn ảnh</label>
                                                 <input type="file" value="<?= $row["Images"] ?>" name="Images" class="form-control" id="example-fileinput">
+
                                             </div>
                                         </div>
                                         <div class="form-group">

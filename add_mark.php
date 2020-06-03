@@ -69,13 +69,13 @@ session_start();
                                     ?>
                                     <form method="post" action="/school/handleAddMark.php">
                                         <div class="form-group">
-                                            <label for="inputAddress" class="col-form-label">Tên học viên</label>
+                                            <label for="inputAddress" class="col-form-label">Tên học sinh</label>
                                             <select name="studentid" id="inputState" class="form-control">
                                                 <?php
                                                 $sl = "SELECT * FROM student";
                                                 $r = $db->query($sl);
                                                 if ($r->num_rows > 0) {
-                                                    echo "<option  value=''>Tên học viên</option>";
+                                                    echo "<option  value=''>Tên học sinh</option>";
                                                     while ($ro = $r->fetch_assoc()) {
                                                         echo "<option value='{$ro["StudentID"]}'>{$ro["StudentName"]}</option>";
                                                     }

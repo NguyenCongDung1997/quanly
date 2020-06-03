@@ -7,12 +7,12 @@ if (isset($_POST["delete"])) {
 	$db->query($sql);
 }
 
-$s = "select
-*
-FROM mark
-INNER JOIN student ON mark.StudentID=student.StudentID
-INNER JOIN subjects ON mark.SubjectsID =subjects.SubjectsID 
-ORDER BY SubjectsName
+	$s = "select * FROM mark 
+	INNER JOIN student ON mark.StudentID=student.StudentID 
+	INNER JOIN subjects ON mark.SubjectsID =subjects.SubjectsID 
+	INNER JOIN handledclass ON student.HID =handledclass.HID 
+	INNER JOIN class ON handledclass.ClassID = class.ClassID 
+	ORDER BY class.ClassName,class.ClassSection,subjects.SubjectsName
 ";
 
 $res = $db->query($s);
@@ -69,12 +69,13 @@ if ($res->num_rows > 0) {
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Tên học viên</th>
+													<th>Tên học sinh</th>
 													<th>Điểm miệng</th>
 													<th>Điểm giữa kỳ</th>
 													<th>Điểm cuối kỳ</th>
 													<th>Điểm trung bình</th>
 													<th>Tên môn học</th>
+													<th>Lớp</th>
 													<th></th>
 												</tr>
 											</thead>
@@ -89,6 +90,7 @@ if ($res->num_rows > 0) {
 														<td><?php echo $value["PointCK"] ?></td>
 														<td><?php echo $tb =round(($value["PointCC"] + $value["PointGK"]*2 + $value["PointCK"]*3)/6,2) ?></td>
 														<td><?php echo $value["SubjectsName"] ?></td>
+														<td><?php echo $value["ClassName"], "-", $value["ClassSection"] ?></td>
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">

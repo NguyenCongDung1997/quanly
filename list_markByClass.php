@@ -96,7 +96,7 @@ if ($res->num_rows > 0) {
                                         </div>
                                         
                                         <div class=" p-2 col-md-12 d-flex flex-row-reverse">
-                                            <form action="/school/excelStudentByhclass.php" method="post">
+                                            <form action="/school/excelMarkhclass.php" method="post">
                                                 <input type="hidden" name="classId" value="<?php echo $row1["HID"] ?>">
                                                 <input type="submit" name="export" class="btn btn-success" value="Xuất file Excel">
                                             </form>
@@ -107,7 +107,10 @@ if ($res->num_rows > 0) {
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Tên Học viên</th>
+                                                    <th>Tên Học sinh</th>
+                                                    <th>Điểm miệng</th>
+                                                    <th>Điểm giữa kỳ</th>
+                                                    <th>Điểm cuối kỳ</th>
                                                     <th>Điểm trung bình</th>
                                                     <th>Môn</th>
                                                     <th></th>
@@ -119,13 +122,16 @@ if ($res->num_rows > 0) {
                                                     <tr>
                                                         <td><?php echo ($i) ?></td>
                                                         <td><?php echo $value["StudentName"] ?></td>
+                                                        <td><?php echo $value["PointCC"] ?></td>
+                                                        <td><?php echo $value["PointGK"] ?></td>
+                                                        <td><?php echo $value["PointCK"] ?></td>
                                                         <td><?php echo $tb =round(($value["PointCC"] + $value["PointGK"]*2 + $value["PointCK"]*3)/6,2) ?></td>
                                                         <td><?php echo $value["SubjectsName"] ?></td>
                                                         <td style="white-space: nowrap; width: 1%;">
                                                             <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
                                                                 <div class="btn-group btn-group-sm" style="float: none;">
                                                                     <form method="post">
-                                                                        <a type="button" href="edit_student.php?id=<?= $value["StudentID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
+                                                                        <a type="button" href="edit_mark.php?id=<?= $value["MarkID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
                                                                             <i class="fas fa-pencil-alt"></i>
                                                                         </a>
                                                                         <button class="btn btn-danger" name="delete" value="<?= $value["StudentID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">

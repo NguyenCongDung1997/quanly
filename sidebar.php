@@ -52,26 +52,16 @@
                         <li><a href="view_teacher.php">Xem danh sách giáo viên</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#" class="waves-effect">
-                        <i class="ion-md-speedometer"></i>
-                        <span> Thi cử </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li><a href="add_exam.php">Tạo kỳ thi</a></li>
-                        <li><a href="view_exam.php">Xem danh sách kỳ thi</a></li>
-                    </ul>
-                </li>
+                
                 <li>
                     <a href="#" class="waves-effect">
                         <i class=" fas fa-user-graduate"></i>
-                        <span> Học viên </span>
+                        <span> Học sinh </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                    <li><a href="add_student.php">Thêm học viên</a></li>
-                    <li><a href="view_student.php">Xem danh sách học viên</a></li>
+                    <li><a href="add_student.php">Thêm học sinh</a></li>
+                    <li><a href="view_student.php">Xem danh sách học sinh</a></li>
                 </ul>
                 </li>
                 <li>
@@ -121,12 +111,12 @@
                     <li>
                         <a href="#" class="waves-effect">
                             <i class="ion-md-speedometer"></i>
-                            <span> Học viên </span>
+                            <span> Học sinh </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="add_teacher.php">Thêm học viên</a></li>
-                            <li><a href="view_teacher.php">Xem học viên</a></li>
+                            <li><a href="add_teacher.php">Thêm học sinh</a></li>
+                            <li><a href="view_teacher.php">Xem học sinh</a></li>
                         </ul>
                     </li>';
                 }

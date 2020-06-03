@@ -150,7 +150,7 @@ if ($res->num_rows > 0) {
 									<div class="media">
 										<div class="media-body align-self-center">
 											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou4["COUNT(*)"]; ?></span></h2>
-											<p class="mb-0">Tổng số học viên</p>
+											<p class="mb-0">Tổng số học sinh</p>
 										</div>
 										<i class="mdi ion-md-school text-primary bg-light"></i>
 									</div>
@@ -158,6 +158,32 @@ if ($res->num_rows > 0) {
 							</div>
 						</div>
 					</div>
+					
+					<div class="row">
+
+<div class="col-xl-6">
+
+	<div class="card">
+		<div class="card-header py-3 bg-transparent">
+			<div class="card-widgets">
+				<a href="javascript:;" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+				<a data-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
+			</div>
+			<h5 class="header-title mb-0">  Pie chart </h5>
+		</div>
+		<div id="cardCollpase3" class="collapse show">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+					<div id="chart_div"></div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- end card-->
+</div>
 					<!-- end col -->
 				</div>
 			</div>
@@ -170,6 +196,42 @@ if ($res->num_rows > 0) {
 	<!-- ============================================================== -->
 	<?php include "sidebar.php"; ?>
 	<?php include "footer.php"; ?>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        // Create columns for the DataTable
+        data.addColumn('string');
+        data.addColumn('number', 'Devices');
+        // Create Rows with data
+        data.addRows([
+          ['SamSung', 21],
+          ['Apple', 14],
+          ['Huawei', 9],
+          ['LG', 4],
+          ['Xiaomi', 5],
+          ['ZTE', 5],
+          ['Other', 42]
+        ]);
+		//Create option for chart
+        var options = {
+          title: 'Global smartphone share Q2 2015',
+          
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
 </body>
 
 </html>

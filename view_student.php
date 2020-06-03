@@ -56,7 +56,7 @@ if ($res->num_rows > 0) {
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class=" col-md-12">
-                                            <h4 class="header-title" style="text-align:center;">Danh sách học viên</h4>
+                                            <h4 class="header-title" style="text-align:center;">Danh sách học sinh</h4>
                                         </div>
                                         <div class=" p-2 col-md-12 d-flex flex-row-reverse ">
 											<form class=" app-search" action="search_student.php" method="post">
@@ -78,7 +78,7 @@ if ($res->num_rows > 0) {
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Tên Học viên</th>
+                                                    <th>Tên Học sinh</th>
                                                     <th>Giới tính</th>
                                                     <th>Ngày sinh</th>
                                                     <th>Địa chỉ</th>

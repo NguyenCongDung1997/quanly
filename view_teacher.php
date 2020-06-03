@@ -103,7 +103,7 @@ if ($res->num_rows > 0) {
 														<td><?php echo $value["Address"] ?></td>
 														<td><?php echo $value["TeacherMail"] ?></td>
 														<td><?php echo $value["TeacherPhone"] ?></td>
-														<td><img src="img/<?php echo $value["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 40px"></td>
+														<td><img src="img/<?php echo $value["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 40px;height: 40px"></td>
 														
 														<td style="white-space: nowrap; width: 1%;">
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">

@@ -14,11 +14,12 @@ if (isset($_POST["TeacherID"])) {
     $FullName = $_POST["FullName"];
     $gender = $_POST["gender"];
     $TeacherDate = $_POST["TeacherDate"];
-    $TeacherPhone= $_POST["TeacherPhone"];
+    $TeacherPhone = $_POST["TeacherPhone"];
     $TeacherMail = $_POST["TeacherMail"];
     $Address = $_POST["Address"];
     $Images = $_POST["Images"];
-    $sql = "update class
+    $TeacherID = $_POST["TeacherID"];
+    $sql = "update teacher
                 set
                 FullName='$FullName',
                 gender='$gender',
@@ -27,15 +28,14 @@ if (isset($_POST["TeacherID"])) {
                 TeacherMail='$TeacherMail',
                 Address='$Address',
                 Images='$Images'
-                where teacherID='$teacherID'";
-                
+                where TeacherID='$TeacherID'";
     if ($db->query($sql)) {
         header("Location: view_teacher.php");
     }
 }
 if (isset($_GET["id"])) {
-    $ClassID = $_GET["id"];
-    $sql = "select * from teacher where teacherID='$teacherID'";
+    $TeacherID = $_GET["id"];
+    $sql = "select * from teacher where TeacherID='$TeacherID'";
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
     if ($row == null) {
@@ -96,17 +96,17 @@ if (isset($_GET["id"])) {
                                         unset($_SESSION["alert"]);
                                     }
                                     ?>
-                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
-                                    <input type="hidden" name="StudentID" value="<?= $row["StudentID"] ?>">
-                                    <div class="form-group">
-											<label for="inputAddress" class="col-form-label">Họ tên giáo viên</label>
-											<input type="text" value="<?= $row["StudentName"] ?>" name="StudentName" class="form-control" id="inputAddress" placeholder="">
-										</div>
-										<div class="form-group">
-											<label for="inputAddress2" class="col-form-label">Địa chỉ</label>
-											<input type="text" name="taddress" class="form-control" id="inputAddress2" placeholder="">
-										</div>
-										<div class="form-row">
+                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                                        <input type="hidden" name="TeacherID" value="<?= $row["TeacherID"] ?>">
+                                        <div class="form-group">
+                                            <label for="inputAddress" class="col-form-label">Họ tên giáo viên</label>
+                                            <input type="text" value="<?= $row["FullName"] ?>" name="FullName" class="form-control" id="inputAddress" placeholder="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputAddress2" class="col-form-label">Địa chỉ</label>
+                                            <input type="text" value="<?= $row["Address"] ?>" name="Address" class="form-control" id="inputAddress2" placeholder="">
+                                        </div>
+                                        <!-- <div class="form-row">
 											<div class="form-group col-md-6">
 												<label for="inputEmail4" class="col-form-label">Tài khoản đăng nhập</label>
 												<input type="text" name="tname" class="form-control" id="inputEmail4" placeholder="Tên đăng nhập">
@@ -115,30 +115,35 @@ if (isset($_GET["id"])) {
 												<label for="inputPassword4" class="col-form-label">Mật khẩu</label>
 												<input type="password" name="tpass" class="form-control" id="inputPassword4" placeholder="Mật khẩu">
 											</div>
-										</div>
-										<div class="form-row">
-											<div class="form-group col-md-5">
-												<label for="inputCity" class="col-form-label">Số điện thoại</label>
-												<input type="text" name="tphone" class="form-control" id="inputCity">
-											</div>
-											<div class="form-group col-md-2">
-												<label for="inputZip" class="col-form-label">Giới tính</label>
-												<input type="text" name="tgender" class="form-control" id="inputZip">
-											</div>
-											<div class="form-group col-md-5">
-												<label class=" col-form-label" for="example-date">Ngày sinh</label>
-												<input class="form-control" name="tdate" id="example-date" type="date" name="date">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class=" col-form-label" for="example-fileinput">Chọn ảnh</label>
-											<input type="file" name="timages" class="form-control" id="example-fileinput">
-										</div>
-										<div class="form-group">
-											<label for="inputEmail4" class="col-form-label">Email</label>
-											<input type="email" name="tmail" class="form-control" id="inputEmail4" placeholder="Email">
-										</div>
+										</div> -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-5">
+                                                <label for="inputCity" class="col-form-label">Số điện thoại</label>
+                                                <input type="text" value="<?= $row["TeacherPhone"] ?>" name="TeacherPhone" class="form-control" id="inputCity">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="inputZip" class="col-form-label">Giới tính</label>
+                                                <input type="text" value="<?= $row["gender"] ?>" name="gender" class="form-control" id="inputZip">
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <label class=" col-form-label" for="example-date">Ngày sinh</label>
+                                                <input class="form-control" value="<?= $row["TeacherDate"] ?>" name="TeacherDate" id="example-date" type="date" name="date">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-10">
+                                                <label for="inputZip" class="col-form-label">Chọn ảnh</label>
+                                                <input type="file" value="<?= $row["Images"] ?>" name="Images" class="form-control" id="example-fileinput">
+                                            </div>
+                                            <div class="form-group col-md-2" >
+                                            <label for="inputZip" class="col-form-label"></label>
+                                            <img src="img/<?php echo $row["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 100%">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail4" class="col-form-label">Email</label>
+                                            <input type="email" value="<?= $row["TeacherMail"] ?>" name="TeacherMail" class="form-control" id="inputEmail4" placeholder="Email">
+                                        </div>
                                         <button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
                                         <a href="javascript:history.back()" class="btn btn-pink">Trở về</a>
                                     </form>
