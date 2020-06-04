@@ -68,11 +68,12 @@ session_start();
                                     }
                                     ?>
                                     <form method="post" action="/school/handleAddMark.php">
+                                    
                                         <div class="form-group">
                                             <label for="inputAddress" class="col-form-label">Tên học sinh</label>
                                             <select name="studentid" id="inputState" class="form-control">
                                                 <?php
-                                                $sl = "SELECT * FROM student";
+                                                $sl = "SELECT * FROM student ORDER BY HID";
                                                 $r = $db->query($sl);
                                                 if ($r->num_rows > 0) {
                                                     echo "<option  value=''>Tên học sinh</option>";

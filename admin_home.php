@@ -178,7 +178,7 @@ if ($res->num_rows > 0) {
 								<div class="card-body widget-style-2">
 									<div class="media">
 										<div class="media-body align-self-center">
-											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou2["COUNT(*)"] ; ?></span></h2>
+											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou2["COUNT(*)"]; ?></span></h2>
 											<p class="mb-0">Môn học</p>
 										</div>
 										<i class="ion-ios-paper text-purple bg-light"></i>
@@ -215,78 +215,89 @@ if ($res->num_rows > 0) {
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 
-<div class="col-xl-6">
+						<div class="col-xl-6">
 
-	<div class="card">
-		<div class="card-header py-3 bg-transparent">
-			<div class="card-widgets">
-				<a href="javascript:;" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-				<a data-toggle="collapse" href="#cardCollpase1" role="button" aria-expanded="false" aria-controls="cardCollpase1"><i class="mdi mdi-minus"></i></a>
-			</div>
-			<h5 class="header-title mb-0">  Toàn trường </h5>
-		</div>
-		<div id="cardCollpase1" class="collapse show">
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-					<div id="chart_div"></div>
+							<div class="card">
+								<div class="card-header py-3 bg-transparent">
+									<div class="card-widgets">
+										<a href="javascript:;" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+										<a data-toggle="collapse" href="#cardCollpase1" role="button" aria-expanded="false" aria-controls="cardCollpase1"><i class="mdi mdi-minus"></i></a>
+									</div>
+									<h5 class="header-title mb-0"> Toàn trường </h5>
+								</div>
+								<div id="cardCollpase1" class="collapse show">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-12">
+												<div id="chart_div"></div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!-- end card-->
+						</div>
+						<?php include "chartclassone.php"; ?>
+						<!-- end col -->
+					</div>
+					<div class="row">
+						<?php include "chartclasstwo.php"; ?>
+						<?php include "chartclassthree.php"; ?>
+					</div>
+					<div class="row">
+						<?php include "chartclassfour.php"; ?>
+						<?php include "chartclassfive.php"; ?>
 					</div>
 				</div>
-
+				<!-- end container-fluid -->
 			</div>
+			<!-- end content -->
 		</div>
-	</div>
-	<!-- end card-->
-</div>
-<?php include "chartclassone.php"; ?>
-					<!-- end col -->
-				</div>
-			</div>
-			<!-- end container-fluid -->
-		</div>
-		<!-- end content -->
-	</div>
-	<!-- ============================================================== -->
-	<!-- End Page content -->
-	<!-- ============================================================== -->
-	<?php include "sidebar.php"; ?>
-	<?php include "footer.php"; ?>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
+		<!-- ============================================================== -->
+		<!-- End Page content -->
+		<!-- ============================================================== -->
+		<?php include "sidebar.php"; ?>
+		<?php include "footer.php"; ?>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			// Load the Visualization API and the piechart package.
+			google.load('visualization', '1.0', {
+				'packages': ['corechart']
+			});
+			google.setOnLoadCallback(drawChart);
 
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-      google.setOnLoadCallback(drawChart);
+			function drawChart() {
 
-      function drawChart() {
+				// Create the data table.
+				var data = new google.visualization.DataTable();
+				// Create columns for the DataTable
+				data.addColumn('string');
+				data.addColumn('number', 'Devices');
+				// Create Rows with data
+				data.addRows([
+					['Học sinh giỏi', <?php echo $couhsg["COUNT(*)"]; ?>],
+					['Học sinh khá', <?php echo $couhsk["COUNT(*)"]; ?>],
+					['Học sinh trung bình', <?php echo $couhstb["COUNT(*)"]; ?>],
+					['Học sinh yếu', <?php echo $couhsy["COUNT(*)"]; ?>],
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        // Create columns for the DataTable
-        data.addColumn('string');
-        data.addColumn('number', 'Devices');
-        // Create Rows with data
-        data.addRows([
-          ['Học sinh giỏi', <?php echo $couhsg["COUNT(*)"]; ?> ],
-          ['Học sinh khá', <?php echo $couhsk["COUNT(*)"]; ?>],
-          ['Học sinh trung bình', <?php echo $couhstb["COUNT(*)"]; ?>],
-          ['Học sinh yếu', <?php echo $couhsy["COUNT(*)"]; ?>],
-          
-        ]);
-		//Create option for chart
-        var options = {
-          title: 'Điểm trung bình môn',
-          
-        };
+				]);
+				//Create option for chart
+				var options = {
+					title: 'Điểm trung bình môn',
+					is3D: true,
+					
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
+				};
+
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			}
+		</script>
 
 </body>
 

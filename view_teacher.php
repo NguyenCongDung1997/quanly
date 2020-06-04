@@ -88,7 +88,7 @@ if ($res->num_rows > 0) {
 													<th>Địa chỉ</th>
 													<th>Email</th>
 													<th>Số điện thoại</th>
-													<th>Avatar</th>
+													<th>Ảnh</th>
 													<th></th>
 												</tr>
 											</thead>

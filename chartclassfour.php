@@ -10,10 +10,10 @@ FROM mark
 INNER JOIN student ON mark.StudentID=student.StudentID 
 INNER JOIN handledclass ON student.HID =handledclass.HID 
 INNER JOIN class ON handledclass.ClassID=class.ClassID 
-WHERE ClassName = 1 GROUP BY StudentName HAVING Tong >=8) AS Tongso";
+WHERE ClassName = 4 GROUP BY StudentName HAVING Tong >=8) AS Tongso";
 $res = $db->query($sql);
 if ($res->num_rows > 0) {
-    $couhsg1 = $res->fetch_assoc();
+    $couhsg4 = $res->fetch_assoc();
 }
 //<!-- ============================================================== -->
 $sql = "SELECT COUNT(*) FROM (SELECT class.ClassName,student.StudentName,
@@ -24,10 +24,10 @@ FROM mark
 INNER JOIN student ON mark.StudentID=student.StudentID 
 INNER JOIN handledclass ON student.HID =handledclass.HID 
 INNER JOIN class ON handledclass.ClassID=class.ClassID 
-WHERE ClassName = 1 GROUP BY StudentName HAVING Tong >=6.5 AND Tong <8) AS Tongso";
+WHERE ClassName = 4 GROUP BY StudentName HAVING Tong >=6.5 AND Tong <8) AS Tongso";
 $res = $db->query($sql);
 if ($res->num_rows > 0) {
-    $couhsk1 = $res->fetch_assoc();
+    $couhsk4 = $res->fetch_assoc();
 }
 //<!-- ============================================================== -->
 $sql = "SELECT COUNT(*) FROM (SELECT class.ClassName,student.StudentName,
@@ -38,10 +38,10 @@ FROM mark
 INNER JOIN student ON mark.StudentID=student.StudentID 
 INNER JOIN handledclass ON student.HID =handledclass.HID 
 INNER JOIN class ON handledclass.ClassID=class.ClassID 
-WHERE ClassName = 1 GROUP BY StudentName HAVING Tong >=5 AND Tong <6.5) AS Tongso";
+WHERE ClassName = 4 GROUP BY StudentName HAVING Tong >=5 AND Tong <6.5) AS Tongso";
 $res = $db->query($sql);
 if ($res->num_rows > 0) {
-    $couhstb1 = $res->fetch_assoc();
+    $couhstb4 = $res->fetch_assoc();
 }
 //<!-- ============================================================== -->
 $sql = "SELECT COUNT(*) FROM (SELECT class.ClassName,student.StudentName,
@@ -52,10 +52,10 @@ FROM mark
 INNER JOIN student ON mark.StudentID=student.StudentID 
 INNER JOIN handledclass ON student.HID =handledclass.HID 
 INNER JOIN class ON handledclass.ClassID=class.ClassID 
-WHERE ClassName = 1 GROUP BY StudentName HAVING Tong <5) AS Tongso";
+WHERE ClassName = 4 GROUP BY StudentName HAVING Tong <5) AS Tongso";
 $res = $db->query($sql);
 if ($res->num_rows > 0) {
-    $couhsy1 = $res->fetch_assoc();
+    $couhsy4 = $res->fetch_assoc();
 }
 
 ?>
@@ -65,15 +65,15 @@ if ($res->num_rows > 0) {
             <div class="card-header py-3 bg-transparent">
                 <div class="card-widgets">
                     <a href="javascript:;" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                    <a data-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
+                    <a data-toggle="collapse" href="#cardCollpase5" role="button" aria-expanded="false" aria-controls="cardCollpase5"><i class="mdi mdi-minus"></i></a>
                 </div>
-                <h5 class="header-title mb-0"> Khối 1 </h5>
+                <h5 class="header-title mb-0"> Khối 4 </h5>
             </div>
-            <div id="cardCollpase3" class="collapse show">
+            <div id="cardCollpase5" class="collapse show">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div id="chart_div1"></div>
+                            <div id="chart_div4"></div>
                         </div>
                     </div>
 
@@ -102,10 +102,10 @@ if ($res->num_rows > 0) {
         data.addColumn('number', 'Devices');
         // Tạo hàng cho dữ liệu
         data.addRows([
-            ['Học sinh giỏi', <?php echo $couhsg1["COUNT(*)"]; ?>],
-            ['Học sinh khá', <?php echo $couhsk1["COUNT(*)"]; ?>],
-            ['Học sinh trung bình', <?php echo $couhstb1["COUNT(*)"]; ?>],
-            ['Học sinh yếu', <?php echo $couhsy1["COUNT(*)"]; ?>],
+            ['Học sinh giỏi', <?php echo $couhsg4["COUNT(*)"]; ?>],
+            ['Học sinh khá', <?php echo $couhsk4["COUNT(*)"]; ?>],
+            ['Học sinh trung bình', <?php echo $couhstb4["COUNT(*)"]; ?>],
+            ['Học sinh yếu', <?php echo $couhsy4["COUNT(*)"]; ?>],
         ]);
         //Tạo tùy chọn cho biểu đồ
         var options = {
@@ -113,7 +113,7 @@ if ($res->num_rows > 0) {
             is3D: true,
         };
         // Khởi tạo và vẽ biểu đồ
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div1'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div4'));
         chart.draw(data, options);
     }
 </script>

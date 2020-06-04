@@ -75,7 +75,7 @@ if ($res->num_rows > 0) {
 												<input type="text" name="cname" class="form-control " id="inputEmail4" placeholder="Tên lớp">
 											</div>
 											<div class="form-group col-md-6">
-												<label for="inputPassword4" class="col-form-label">Tầng</label>
+												<label for="inputPassword4" class="col-form-label">Cấp độ</label>
 												<input type="text" name="sec" class="form-control " id="inputPassword4" placeholder="Ví dụ: A,B,C...">
 											</div>
 										</div>

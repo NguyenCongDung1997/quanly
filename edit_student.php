@@ -42,7 +42,9 @@ if (isset($_GET["id"])) {
 //==========================================>
 $sql = "select * from handledclass
 INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID
-INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID";
+INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
+INNER JOIN class ON handledclass.ClassID = class.ClassID
+													ORDER BY ClassName";
 $query = $db->query($sql);
 $class = [];
 while ($item = $query->fetch_array()) {
@@ -129,10 +131,13 @@ while ($item = $query->fetch_array()) {
                                         </div>
 
                                         <div class="form-row">
-                                            <div class="form-group col-md-12">
+                                            <div class="form-group col-md-10">
                                                 <label for="inputZip" class="col-form-label">Chọn ảnh</label>
                                                 <input type="file" value="<?= $row["Images"] ?>" name="Images" class="form-control" id="example-fileinput">
-
+                                            </div>
+                                            <div class="form-group col-md-2" >
+                                            <label for="inputZip" class="col-form-label"></label>
+                                            <img src="img/<?php echo $row["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 100%">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -140,7 +145,7 @@ while ($item = $query->fetch_array()) {
                                             <select name="HID" id="inputState" class="form-control">
                                                 <?php foreach ($class as $item) { ?>
                                                     <option name="HID" value="<?= $item["HID"] ?>" <?= $item["HID"] == $row["HID"] ? "selected" : "" ?>>
-                                                        <?= $item["FullName"] ?>-<?= $item["SubjectsName"] ?></option>
+                                                   Lớp: <?= $item["ClassName"] ?>-<?= $item["ClassSection"] ?> Giáo viên: <?= $item["FullName"] ?>-<?= $item["SubjectsName"] ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

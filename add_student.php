@@ -108,14 +108,16 @@ if ($res->num_rows > 0) {
 												$sl = "select *
                                                     FROM handledclass
                                                     INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID
-                                                    INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID
+													INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID
+													INNER JOIN class ON handledclass.ClassID = class.ClassID
+													ORDER BY ClassName
                                                     ";
 
 												$r = $db->query($sl);
 												if ($r->num_rows > 0) {
 													echo "<option value=''>Lớp học</option>";
 													while ($ro = $r->fetch_assoc()) {
-														echo "<option value='{$ro["HID"]}'>{$ro["FullName"]}-{$ro["SubjectsName"]}</option>";
+														echo "<option value='{$ro["HID"]}'>Lớp: {$ro["ClassName"]}-{$ro["ClassSection"]}  Giáo viên: {$ro["FullName"]}-{$ro["SubjectsName"]}</option>";
 													}
 												}
 												?>

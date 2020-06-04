@@ -12,6 +12,7 @@ FROM handledclass
 INNER JOIN class ON handledclass.ClassID=class.ClassID 
 INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID 
 INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID 
+ORDER BY ClassName
 ";
 $res = $db->query($s);
 $class = [];

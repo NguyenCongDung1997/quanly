@@ -9,7 +9,8 @@ if (isset($_POST["delete"])) {
 
 $s = "SELECT * FROM student
 INNER JOIN handledclass ON handledclass.HID = student.HID 
-INNER JOIN class ON class.ClassID = handledclass.ClassID";
+INNER JOIN class ON class.ClassID = handledclass.ClassID
+ORDER BY ClassName";
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {
@@ -84,6 +85,7 @@ if ($res->num_rows > 0) {
                                                     <th>Địa chỉ</th>
                                                     <th>Lớp</th>
                                                     <th>Số điện thoại</th>
+                                                    <th>Ảnh</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -98,6 +100,7 @@ if ($res->num_rows > 0) {
                                                         <td><?php echo $value["Address"] ?></td>
                                                         <td><?php echo $value["ClassName"], "-", $value["ClassSection"]?></td>
                                                         <td><?php echo $value["StudentPhone"] ?></td>
+                                                        <td><img src="img/<?php echo $value["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 40px;height: 40px"></td>
                                                         <td style="white-space: nowrap; width: 1%;">
                                                             <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
                                                                 <div class="btn-group btn-group-sm" style="float: none;">
