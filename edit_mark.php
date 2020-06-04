@@ -7,15 +7,14 @@ if (isset($_POST["MarkID"])) {
     $PointCC = $_POST["PointCC"];
     $PointGK = $_POST["PointGK"];
     $PointCK = $_POST["PointCK"];
-    $SubjectsID = $_POST["SubjectsID"];
+   
     $MarkID  = $_POST["MarkID"];
     $sql = "update mark
                 set
-                
                 PointCC='$PointCC',
                 PointGK='$PointGK',
-                PointCK='$PointCK',
-                SubjectsID='$SubjectsID'
+                PointCK='$PointCK'
+               
                 where MarkID ='$MarkID'";
                 
 
@@ -110,15 +109,15 @@ while ($item = $query->fetch_array()) {
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
                                                 <label for="inputCity" class="col-form-label">Điểm miệng</label>
-                                                <input type="text" value="<?= $row["PointCC"] ?>" name="Point" class="form-control" id="inputCity">
+                                                <input type="text" value="<?= $row["PointCC"] ?>" name="PointCC" class="form-control" id="inputCity">
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="inputCity" class="col-form-label">Điểm giữa kỳ</label>
-                                                <input type="text" value="<?= $row["PointGK"] ?>" name="Point" class="form-control" id="inputCity">
+                                                <input type="text" value="<?= $row["PointGK"] ?>" name="PointGK" class="form-control" id="inputCity">
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="inputCity" class="col-form-label">Điểm cuối kỳ</label>
-                                                <input type="text" value="<?= $row["PointCK"] ?>" name="Point" class="form-control" id="inputCity">
+                                                <input type="text" value="<?= $row["PointCK"] ?>" name="PointCK" class="form-control" id="inputCity">
                                             </div>
                                             
 
@@ -128,7 +127,7 @@ while ($item = $query->fetch_array()) {
                                             <div class="form-group col-md-12">
                                                 <label for="inputState" class="col-form-label">Môn học</label>
                                                 <input type="text" disabled value="<?= $row["SubjectsName"] ?>" name="SubjectsName" class="form-control" id="inputAddress" placeholder="" >
-                                                
+                                               
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>

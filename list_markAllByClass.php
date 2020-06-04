@@ -13,10 +13,16 @@ if (isset($_GET["id"])) {
     $row = $result->fetch_assoc();
 }
 
-$s = "select * from student 
-INNER JOIN mark ON mark.StudentID=student.StudentID 
-INNER JOIN subjects ON mark.SubjectsID=subjects.SubjectsID 
-where HID='$HID' ORDER BY SubjectsName" ;
+$s = "SELECT class.ClassName,student.StudentName,student.StudentID,
+AVG(mark.PointCC) ,AVG(mark.PointGK),AVG(mark.PointCK),
+COUNT(student.StudentName) AS Tongmon, 
+AVG(((mark.PointCC)+(mark.PointGK)*2+(mark.PointCK)*3)/6) AS Tong 
+FROM mark
+INNER JOIN student ON mark.StudentID=student.StudentID 
+INNER JOIN handledclass ON student.HID =handledclass.HID 
+INNER JOIN class ON handledclass.ClassID=class.ClassID 
+WHERE handledclass.HID='$HID' GROUP BY StudentName" ;
+
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {
@@ -108,11 +114,7 @@ if ($res->num_rows > 0) {
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Tên Học sinh</th>
-                                                    <th>Điểm miệng</th>
-                                                    <th>Điểm giữa kỳ</th>
-                                                    <th>Điểm cuối kỳ</th>
-                                                    <th>Điểm trung bình</th>
-                                                    <th>Môn</th>
+                                                    <th>Điểm trung bình môn</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -122,21 +124,14 @@ if ($res->num_rows > 0) {
                                                     <tr>
                                                         <td><?php echo ($i) ?></td>
                                                         <td><?php echo $value["StudentName"] ?></td>
-                                                        <td><?php echo $value["PointCC"] ?></td>
-                                                        <td><?php echo $value["PointGK"] ?></td>
-                                                        <td><?php echo $value["PointCK"] ?></td>
-                                                        <td><?php echo $tb =round(($value["PointCC"] + $value["PointGK"]*2 + $value["PointCK"]*3)/6,2) ?></td>
-                                                        <td><?php echo $value["SubjectsName"] ?></td>
+                                                        <td><?php echo round($value["Tong"],1) ?></td>
                                                         <td style="white-space: nowrap; width: 1%;">
                                                             <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
                                                                 <div class="btn-group btn-group-sm" style="float: none;">
                                                                     <form method="post">
-                                                                        <a type="button" href="edit_mark.php?id=<?= $value["MarkID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
-                                                                            <i class="fas fa-pencil-alt"></i>
-                                                                        </a>
-                                                                        <button class="btn btn-danger" name="delete" value="<?= $value["StudentID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
-                                                                            <i class="fas fa-times"></i>
-                                                                        </button>
+                                                                    <a type="button" href="list_markByStudent.php?id=<?= $value["StudentID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Xem danh sách điểm">
+																			<i class="mdi mdi-eye"></i>
+																	</a>
                                                                     </form>
                                                                 </div>
                                                             </div>

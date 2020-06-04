@@ -35,6 +35,63 @@ $res = $db->query($sql);
 if ($res->num_rows > 0) {
 	$cou5 = $res->fetch_assoc();
 }
+//<!-- ============================================================== -->
+$sql = "SELECT COUNT(*) FROM (SELECT class.ClassName,student.StudentName,
+AVG(mark.PointCC) ,AVG(mark.PointGK),AVG(mark.PointCK),
+COUNT(student.StudentName) AS Tongmon, 
+AVG(((mark.PointCC)+(mark.PointGK)*2+(mark.PointCK)*3)/6) AS Tong 
+FROM mark
+INNER JOIN student ON mark.StudentID=student.StudentID 
+INNER JOIN handledclass ON student.HID =handledclass.HID 
+INNER JOIN class ON handledclass.ClassID=class.ClassID 
+GROUP BY StudentName HAVING Tong >=8) AS Tongso";
+$res = $db->query($sql);
+if ($res->num_rows > 0) {
+	$couhsg = $res->fetch_assoc();
+}
+//<!-- ============================================================== -->
+$sql = "SELECT COUNT(*) FROM (SELECT class.ClassName,student.StudentName,
+AVG(mark.PointCC) ,AVG(mark.PointGK),AVG(mark.PointCK),
+COUNT(student.StudentName) AS Tongmon, 
+AVG(((mark.PointCC)+(mark.PointGK)*2+(mark.PointCK)*3)/6) AS Tong 
+FROM mark
+INNER JOIN student ON mark.StudentID=student.StudentID 
+INNER JOIN handledclass ON student.HID =handledclass.HID 
+INNER JOIN class ON handledclass.ClassID=class.ClassID 
+GROUP BY StudentName HAVING Tong >=6.5 AND Tong <8) AS Tongso";
+$res = $db->query($sql);
+if ($res->num_rows > 0) {
+	$couhsk = $res->fetch_assoc();
+}
+//<!-- ============================================================== -->
+$sql = "SELECT COUNT(*) FROM (SELECT class.ClassName,student.StudentName,
+AVG(mark.PointCC) ,AVG(mark.PointGK),AVG(mark.PointCK),
+COUNT(student.StudentName) AS Tongmon, 
+AVG(((mark.PointCC)+(mark.PointGK)*2+(mark.PointCK)*3)/6) AS Tong 
+FROM mark
+INNER JOIN student ON mark.StudentID=student.StudentID 
+INNER JOIN handledclass ON student.HID =handledclass.HID 
+INNER JOIN class ON handledclass.ClassID=class.ClassID 
+GROUP BY StudentName HAVING Tong >=5 AND Tong <6.5) AS Tongso";
+$res = $db->query($sql);
+if ($res->num_rows > 0) {
+	$couhstb = $res->fetch_assoc();
+}
+//<!-- ============================================================== -->
+$sql = "SELECT COUNT(*) FROM (SELECT class.ClassName,student.StudentName,
+AVG(mark.PointCC) ,AVG(mark.PointGK),AVG(mark.PointCK),
+COUNT(student.StudentName) AS Tongmon, 
+AVG(((mark.PointCC)+(mark.PointGK)*2+(mark.PointCK)*3)/6) AS Tong 
+FROM mark
+INNER JOIN student ON mark.StudentID=student.StudentID 
+INNER JOIN handledclass ON student.HID =handledclass.HID 
+INNER JOIN class ON handledclass.ClassID=class.ClassID 
+GROUP BY StudentName HAVING Tong <5) AS Tongso";
+$res = $db->query($sql);
+if ($res->num_rows > 0) {
+	$couhsy = $res->fetch_assoc();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +178,7 @@ if ($res->num_rows > 0) {
 								<div class="card-body widget-style-2">
 									<div class="media">
 										<div class="media-body align-self-center">
-											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou2["COUNT(*)"]; ?></span></h2>
+											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou2["COUNT(*)"] ; ?></span></h2>
 											<p class="mb-0">Môn học</p>
 										</div>
 										<i class="ion-ios-paper text-purple bg-light"></i>
@@ -167,11 +224,11 @@ if ($res->num_rows > 0) {
 		<div class="card-header py-3 bg-transparent">
 			<div class="card-widgets">
 				<a href="javascript:;" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-				<a data-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
+				<a data-toggle="collapse" href="#cardCollpase1" role="button" aria-expanded="false" aria-controls="cardCollpase1"><i class="mdi mdi-minus"></i></a>
 			</div>
-			<h5 class="header-title mb-0">  Pie chart </h5>
+			<h5 class="header-title mb-0">  Toàn trường </h5>
 		</div>
-		<div id="cardCollpase3" class="collapse show">
+		<div id="cardCollpase1" class="collapse show">
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-12">
@@ -184,6 +241,7 @@ if ($res->num_rows > 0) {
 	</div>
 	<!-- end card-->
 </div>
+<?php include "chartclassone.php"; ?>
 					<!-- end col -->
 				</div>
 			</div>
@@ -212,17 +270,15 @@ if ($res->num_rows > 0) {
         data.addColumn('number', 'Devices');
         // Create Rows with data
         data.addRows([
-          ['SamSung', 21],
-          ['Apple', 14],
-          ['Huawei', 9],
-          ['LG', 4],
-          ['Xiaomi', 5],
-          ['ZTE', 5],
-          ['Other', 42]
+          ['Học sinh giỏi', <?php echo $couhsg["COUNT(*)"]; ?> ],
+          ['Học sinh khá', <?php echo $couhsk["COUNT(*)"]; ?>],
+          ['Học sinh trung bình', <?php echo $couhstb["COUNT(*)"]; ?>],
+          ['Học sinh yếu', <?php echo $couhsy["COUNT(*)"]; ?>],
+          
         ]);
 		//Create option for chart
         var options = {
-          title: 'Global smartphone share Q2 2015',
+          title: 'Điểm trung bình môn',
           
         };
 

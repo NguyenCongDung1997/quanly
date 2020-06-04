@@ -69,7 +69,6 @@ if ($res->num_rows > 0) {
 													<th>#</th>
 													<th>Tên giáo viên chủ nhiệm</th>
 													<th>Lớp</th>
-													
 													<th>Tổng học sinh</th>
 													<th></th>
 												</tr>
@@ -87,7 +86,7 @@ if ($res->num_rows > 0) {
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
 																	<form method="post">
-																		<a type="button" href="list_markByClass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Xem danh sách điểm">
+																		<a type="button" href="list_markAllByClass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Xem danh sách điểm">
 																			<i class="mdi mdi-eye"></i>
 																		</a>
 																	</form>
