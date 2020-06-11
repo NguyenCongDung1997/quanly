@@ -1,6 +1,11 @@
 <?php
 include "database.php";
 session_start();
+if (isset($_POST["delete"])) {
+	$MarkID   = $_POST["delete"];
+	$sql = "DELETE FROM mark WHERE MarkID ='$MarkID'";
+	$db->query($sql);
+}
 
 if (isset($_GET["id"])) {
     $StudentID = $_GET["id"];
@@ -115,7 +120,7 @@ if ($res->num_rows > 0) {
                                                                         <a type="button" href="edit_mark.php?id=<?= $value["MarkID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
                                                                             <i class="fas fa-pencil-alt"></i>
                                                                         </a>
-                                                                        <button class="btn btn-danger" name="delete" value="<?= $value["StudentID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
+                                                                        <button class="btn btn-danger" name="delete" value="<?= $value["MarkID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
                                                                             <i class="fas fa-times"></i>
                                                                         </button>
                                                                     </form>

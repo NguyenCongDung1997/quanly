@@ -34,6 +34,11 @@ session_start();
     <link href="assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
     <link href="assets\css\icons.min.css" rel="stylesheet" type="text/css">
     <link href="assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+    <script src="jquery.min.js"></script>
 </head>
 
 <body>
@@ -68,20 +73,30 @@ session_start();
                                     }
                                     ?>
                                     <form method="post" action="/school/handleAddMark.php">
-                                    
+
                                         <div class="form-group">
-                                            <label for="inputAddress" class="col-form-label">Tên học sinh</label>
-                                            <select name="studentid" id="inputState" class="form-control">
+                                            <label for="inputAddress" class="col-form-label">Lớp</label>
+                                            <select  id="cl" name="cl" class="form-control">
                                                 <?php
-                                                $sl = "SELECT * FROM student ORDER BY HID";
+                                                $sl = "SELECT * FROM handledclass 
+                                                INNER JOIN class ON handledclass.ClassID=class.ClassID 
+                                                ORDER BY className,ClassSection";
                                                 $r = $db->query($sl);
                                                 if ($r->num_rows > 0) {
-                                                    echo "<option  value=''>Tên học sinh</option>";
+                                                    echo "<option  value=''>Lớp</option>";
                                                     while ($ro = $r->fetch_assoc()) {
-                                                        echo "<option value='{$ro["StudentID"]}'>{$ro["StudentName"]}</option>";
+                                                        echo "<option value='{$ro["HID"]}'>{$ro["ClassName"]}-{$ro["ClassSection"]}</option>";
                                                     }
+                                                }else{
+                                                    echo '<option value="">Error</option>';
                                                 }
                                                 ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputAddress" class="col-form-label">Tên học sinh</label>
+                                            <select id="st" name="studentid" class="form-control">
+                                            <option value="">Tên học sinh</option>
                                             </select>
                                         </div>
                                         <div class="form-row">
@@ -97,7 +112,7 @@ session_start();
                                                 <label for="inputCity" class="col-form-label">Điểm cuối kỳ</label>
                                                 <input type="text" name="pointck" class="form-control" id="inputAddress" placeholder="" autocomplete="off">
                                             </div>
-                                            
+
                                         </div>
                                         <div class="form-row">
 
@@ -132,6 +147,26 @@ session_start();
         </div>
         <!-- end content -->
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+    $('#cl').on('change',function(){
+        var HID = $(this).val();
+        if(HID){
+            $.ajax({
+                type:'POST',
+                url:'ajaxData.php',
+                data:'HID='+HID,
+                success:function(html){
+                    $('#st').html(html);
+                    
+                }
+            }); 
+        }else{
+            $('#st').html('<option value="">Tên học sinh</option>');
+        }
+    });});
+    </script>
+
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->

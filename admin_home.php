@@ -159,13 +159,13 @@ if ($res->num_rows > 0) {
 								</div>
 							</div>
 						</div>
-						<div class="col-xl-3 col-sm-6" style="cursor: pointer;" onclick="window.location='view_hclass.php'">
+						<div class="col-xl-3 col-sm-6" style="cursor: pointer;" onclick="window.location='view_hclass_all.php'">
 							<div class="card">
 								<div class="card-body widget-style-2">
 									<div class="media">
 										<div class="media-body align-self-center">
 											<h2 class="my-0"><span data-plugin="counterup"><?php echo $cou5["COUNT(*)"]; ?></span></h2>
-											<p class="mb-0">Số lớp đang học</p>
+											<p class="mb-0">Số lớp học</p>
 										</div>
 										<i class="ion-md-eye text-pink bg-light"></i>
 									</div>

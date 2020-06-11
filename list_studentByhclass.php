@@ -101,6 +101,7 @@ if ($res->num_rows > 0) {
                                                     <th>Ngày sinh</th>
                                                     <th>Địa chỉ</th>
                                                     <th>Số điện thoại</th>
+                                                    <th>Ảnh đại diện</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -114,6 +115,7 @@ if ($res->num_rows > 0) {
                                                         <td><?php echo $value["StudentDate"] ?></td>
                                                         <td><?php echo $value["Address"] ?></td>
                                                         <td><?php echo $value["StudentPhone"] ?></td>
+                                                        <td><img src="img/<?php echo $value["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 40px;height: 40px"></td>
                                                         <td style="white-space: nowrap; width: 1%;">
                                                             <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
                                                                 <div class="btn-group btn-group-sm" style="float: none;">

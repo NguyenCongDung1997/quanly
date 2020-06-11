@@ -1,6 +1,24 @@
 <?php
 include "database.php";
 session_start();
+if (isset($_SESSION["admin"])) {
+    header("Location: admin_home.php");
+}
+if (isset($_POST["login"])) {
+    $ANAME = $_POST["aname"];
+    $APASS = $_POST["apass"];
+    $sql = "SELECT aname
+            FROM admin
+            WHERE aname='$ANAME'
+            AND apass='$APASS'";
+    $check = $db->query($sql);
+    if ($check->num_rows > 0) {
+        $_SESSION["admin"] = $ANAME;
+        header("Location: admin_home.php");
+    } else {
+        $login_error = true;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

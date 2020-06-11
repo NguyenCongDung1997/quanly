@@ -12,7 +12,7 @@ FROM handledclass
 INNER JOIN class ON handledclass.ClassID=class.ClassID 
 INNER JOIN subjects ON handledclass.SubjectsID=subjects.SubjectsID 
 INNER JOIN teacher ON handledclass.TeacherID=teacher.TeacherID 
-INNER JOIN student ON handledclass.HID = student.HID GROUP BY student.HID";
+INNER JOIN student ON handledclass.HID = student.HID GROUP BY student.HID ORDER BY class.ClassName";
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {
