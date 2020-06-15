@@ -89,13 +89,13 @@ if ($res->num_rows > 0) {
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="header-title mb-4">Danh sách lớp học</h4>
+									<h4 class="header-title mb-4">Danh sách phòng học</h4>
 									<div class="table-responsive">
 										<table class="table table-centered mb-0 table-nowrap" id="btn-editable">
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Tên lớp</th>
+													<th>Tên phòng</th>
 													<th>Cấp độ</th>
 													<th></th>
 												</tr>

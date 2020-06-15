@@ -95,9 +95,7 @@ if ($res->num_rows > 0) {
 															<div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
 																<div class="btn-group btn-group-sm" style="float: none;">
 																	<form method="post">
-																		<button type="button" class="tabledit-edit-button btn btn-success" style="float: none;">
-																			<span class="mdi mdi-eye"></span>
-																		</button>
+																
 																		<a type="button" href="edit_mark.php?id=<?= $value["MarkID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
 																			<i class="fas fa-pencil-alt"></i>
 																		</a>

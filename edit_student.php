@@ -8,9 +8,24 @@ if (isset($_POST["StudentID"])) {
     $gender = $_POST["gender"];
     $StudentPhone  = $_POST["StudentPhone"];
     $Address = $_POST["Address"];
-    $Images = $_POST["Images"];
     $HID = $_POST["HID"];
     $StudentID = $_POST["StudentID"];
+    if (isset($_FILES["Images"]) && $_FILES["Images"]["size"] > 0) {
+        $time = time();
+        $type = explode("/", $_FILES["Images"]["type"])[1];
+        $Images = "$time.$type";
+        move_uploaded_file($_FILES["Images"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/school/img/" . $Images);
+        $sql = "update student
+        set
+        StudentName='$StudentName',
+        StudentDate='$StudentDate',
+        gender='$gender',
+        StudentPhone='$StudentPhone',
+        Address='$Address',
+        HID ='$HID',
+        Images='$Images'
+        where StudentID ='$StudentID'";
+    } else {
     $sql = "update student
                 set
                 StudentName='$StudentName',
@@ -18,10 +33,9 @@ if (isset($_POST["StudentID"])) {
                 gender='$gender',
                 StudentPhone='$StudentPhone',
                 Address='$Address',
-                HID ='$HID',
-                Images ='$Images'
+                HID ='$HID'
                 where StudentID ='$StudentID'";
-                
+    }            
     if ($db->query($sql)) {
         header("Location: view_student.php");
     }
@@ -105,7 +119,7 @@ while ($item = $query->fetch_array()) {
                                         unset($_SESSION["alert"]);
                                     }
                                     ?>
-                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>" enctype="multipart/form-data">
                                         <input type="hidden" name="StudentID" value="<?= $row["StudentID"] ?>">
                                         <div class="form-group">
                                             <label for="inputAddress" class="col-form-label">Họ tên học sinh</label>

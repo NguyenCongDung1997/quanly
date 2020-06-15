@@ -78,7 +78,7 @@ if ($res->num_rows > 0) {
                                     ?>
                                     <div class="form-row">
                                         <div class=" col-md-12">
-                                            <h4 class="header-title" style="text-align:center;">Danh sách điểm lớp:</h4>
+                                            <h4 class="header-title" style="text-align:center;">Điểm học sinh: <?php echo $row["StudentName"] ?> </h4>
                                         </div>
                                         
                                         <div class=" p-2 col-md-12 d-flex flex-row-reverse">

@@ -17,8 +17,24 @@ if (isset($_POST["TeacherID"])) {
     $TeacherPhone = $_POST["TeacherPhone"];
     $TeacherMail = $_POST["TeacherMail"];
     $Address = $_POST["Address"];
-    $Images = $_POST["Images"];
-    $TeacherID = $_POST["TeacherID"];
+    $TeacherID = $_POST["TeacherID"];     
+    if (isset($_FILES["Images"]) && $_FILES["Images"]["size"] > 0) {
+        $time = time();
+        $type = explode("/", $_FILES["Images"]["type"])[1];
+        $Images = "$time.$type";
+        move_uploaded_file($_FILES["Images"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/school/img/" . $Images);
+        $sql = "update teacher
+        set
+        FullName='$FullName',
+        gender='$gender',
+        TeacherDate='$TeacherDate',
+        TeacherPhone='$TeacherPhone',
+        TeacherMail='$TeacherMail',
+        Address='$Address',
+        Images='$Images'
+        where TeacherID='$TeacherID'";
+    
+    } else {
     $sql = "update teacher
                 set
                 FullName='$FullName',
@@ -26,9 +42,9 @@ if (isset($_POST["TeacherID"])) {
                 TeacherDate='$TeacherDate',
                 TeacherPhone='$TeacherPhone',
                 TeacherMail='$TeacherMail',
-                Address='$Address',
-                Images='$Images'
+                Address='$Address'
                 where TeacherID='$TeacherID'";
+    }
     if ($db->query($sql)) {
         header("Location: view_teacher.php");
     }
@@ -96,7 +112,7 @@ if (isset($_GET["id"])) {
                                         unset($_SESSION["alert"]);
                                     }
                                     ?>
-                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>" enctype="multipart/form-data">
                                         <input type="hidden" name="TeacherID" value="<?= $row["TeacherID"] ?>">
                                         <div class="form-group">
                                             <label for="inputAddress" class="col-form-label">Họ tên giáo viên</label>
@@ -133,11 +149,11 @@ if (isset($_GET["id"])) {
                                         <div class="form-row">
                                             <div class="form-group col-md-10">
                                                 <label for="inputZip" class="col-form-label">Chọn ảnh</label>
-                                                <input type="file" value="<?= $row["Images"] ?>" name="Images" class="form-control" id="example-fileinput">
+                                                <input type="file" accept="image/*" value="<?= $row["Images"] ?>" name="Images" class="form-control" >
                                             </div>
                                             <div class="form-group col-md-2" >
                                             <label for="inputZip" class="col-form-label"></label>
-                                            <img src="img/<?php echo $row["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 100%">
+                                            <img src="img/<?= $row["Images"] ?>" alt="user-image" class="rounded-circle" style="width: 100%">
                                             </div>
                                         </div>
                                         <div class="form-group">
