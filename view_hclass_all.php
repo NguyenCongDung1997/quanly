@@ -94,7 +94,7 @@ if ($res->num_rows > 0) {
 																		<a type="button" href="edit_hclass.php?id=<?= $value["HID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
 																			<i class="fas fa-pencil-alt"></i>
 																		</a>
-																		<button class="btn btn-danger" name="delete" value="<?= $value["HID"] ?>">
+																		<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa không?');" name="delete" value="<?= $value["HID"] ?>">
 																			<i class="fas fa-times"></i>
 																		</button>
 																	</form>

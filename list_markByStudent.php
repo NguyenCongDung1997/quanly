@@ -77,16 +77,16 @@ if ($res->num_rows > 0) {
                                     }
                                     ?>
                                     <div class="form-row">
-                                        <div class=" col-md-12">
+                                        <div class=" col-md-12 pb-4">
                                             <h4 class="header-title" style="text-align:center;">Điểm học sinh: <?php echo $row["StudentName"] ?> </h4>
                                         </div>
                                         
-                                        <div class=" p-2 col-md-12 d-flex flex-row-reverse">
+                                        <!-- <div class=" p-2 col-md-12 d-flex flex-row-reverse">
                                             <form action="/school/excelMarkhclass.php" method="post">
                                                 <input type="hidden" name="classId" value="<?php echo $row1["HID"] ?>">
                                                 <input type="submit" name="export" class="btn btn-success" value="Xuất file Excel">
                                             </form>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-centered mb-0 table-nowrap" id="btn-editable">

@@ -19,7 +19,7 @@ if (isset($_POST["MarkID"])) {
                 
 
     if ($db->query($sql)) {
-        header("Location: view_mark.php");
+        header("Location: " . $_SERVER['HTTP_REFERER']);
     }
 }
 if (isset($_GET["id"])) {
@@ -34,10 +34,10 @@ if (isset($_GET["id"])) {
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
     if ($row == null) {
-        header("Location: view_mark.php");
+        header("Location: ". $_SERVER['HTTP_REFERER']);
     }
 } else {
-    header("Location: view_mark.php");
+    header("Location: ". $_SERVER['HTTP_REFERER']);
 }
 
 
@@ -127,11 +127,11 @@ while ($item = $query->fetch_array()) {
                                             <div class="form-group col-md-12">
                                                 <label for="inputState" class="col-form-label">Môn học</label>
                                                 <input type="text" disabled value="<?= $row["SubjectsName"] ?>" name="SubjectsName" class="form-control" id="inputAddress" placeholder="" >
-                                               
+                                            
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" name="submit">Lưu lại</button>
-                                        <a href="javascript:history.back()" class="btn btn-pink">Trở về</a>
+                                        <a href="javascript:history.go(-2)" class="btn btn-pink">Trở về</a>
                                     </form>
                                 </div>
                             </div>

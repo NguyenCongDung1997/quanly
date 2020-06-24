@@ -10,7 +10,7 @@ if (isset($_POST["delete"])) {
 $s = "SELECT * FROM student
 INNER JOIN handledclass ON handledclass.HID = student.HID 
 INNER JOIN class ON class.ClassID = handledclass.ClassID
-ORDER BY ClassName";
+ORDER BY ClassName, gender";
 $res = $db->query($s);
 $class = [];
 if ($res->num_rows > 0) {
@@ -108,7 +108,7 @@ if ($res->num_rows > 0) {
                                                                         <a type="button" href="edit_student.php?id=<?= $value["StudentID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
                                                                             <i class="fas fa-pencil-alt"></i>
                                                                         </a>
-                                                                        <button class="btn btn-danger" name="delete" value="<?= $value["StudentID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
+                                                                        <button class="btn btn-danger" name="delete" onclick="return confirm('Bạn có chắc chắn xóa không?');" value="<?= $value["StudentID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
                                                                             <i class="fas fa-times"></i>
                                                                         </button>
                                                                     </form>

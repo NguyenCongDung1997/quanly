@@ -111,7 +111,7 @@ if ($res->num_rows > 0) {
 																		<a type="button" href="edit_sub.php?id=<?= $value["SubjectsID"] ?>" class="tabledit-edit-button btn btn-success tabledit-toolbar active" style="float: none;" data-placement="top" data-toggle="tooltip" data-original-title="Sửa">
 																			<i class="fas fa-pencil-alt"></i>
 																		</a>
-																		<button class="btn btn-danger" name="delete" value="<?= $value["SubjectsID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
+																		<button class="btn btn-danger" name="delete" onclick="return confirm('Bạn có chắc chắn xóa không?');" value="<?= $value["SubjectsID"] ?>" data-placement="top" data-toggle="tooltip" data-original-title="Xóa">
 																			<i class="fas fa-times"></i>
 																		</button>
 																	</form>

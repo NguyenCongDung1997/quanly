@@ -48,7 +48,7 @@ if (isset($_POST["export"])) {
         <td>' . $row["PointCC"] . '</td>  
         <td>' . $row["PointGK"] . '</td>  
         <td>' . $row["PointCK"] . '</td>  
-        <td>' . $row["PointCK"] . '</td>  
+        <td>' . $tb =round(($row["PointCC"] + $row["PointGK"]*2 + $row["PointCK"]*3)/6,2) . '</td>  
         <td>' . $row["SubjectsName"] . '</td>
     </tr>
 ';
